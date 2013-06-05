@@ -50,7 +50,7 @@ J(function($,p,pub){
 
 
 			//分离目录和文件
-			for (var i = len2 - 1; i >= 0; i--) {
+			for (var i = 0; i <len2; i++) {
 				stat = fs.lstatSync(dirObj.path+files[i]);
 				//directory
 				if (stat.isDirectory()) {

@@ -177,6 +177,35 @@ J(function($,p,pub){
 		return items1;
 		
 	};
+
+	//read all files according to the J.dataSetting.data.searchFlag
+	var _getFiles = function(topFolders){
+
+		len1 = topFolders.length;
+		if (len1===0) {
+			return;
+		};
+		var cbk =function(err,d){
+
+			var len2 = topFolders.length;
+			d = (err||d)||{};
+			d.total = len1;
+			d.current = len1-len2;
+
+			$win.trigger(pub.id+'OnGetFiles',[d]);
+
+			if (len2 === 0) {
+				return;
+			};
+
+			J.dataDir.getFiles(topFolders.splice(0,1)[0],cbk);
+
+		};
+
+		J.dataDir.getFiles(topFolders.splice(0,1)[0],cbk);
+
+	};
+
 	/**
 	 * Get project files from specified project directory
 	 * @param {String} _dir project directory
@@ -199,7 +228,9 @@ J(function($,p,pub){
 				flagFoundIndex =i;
 				topFolders.push({
 					'flag':flags[i],
-					'path':_dir
+					'path':_dir,
+					'includeSubDir':true,
+					'ignoreFolders':J.dataSetting.data.ignoreFolders
 				});
 			};
 			if (i!==flagFoundIndex) {
@@ -228,39 +259,48 @@ J(function($,p,pub){
 					'ignoreFolders':J.dataSetting.data.ignoreFolders
 				});
 			};
-		}else{
-			//跟目录
-			topFolders.push({
-				'flag':'',
-				'path':_dir,
-				'includeSubDir':true,
-				'ignoreFolders':J.dataSetting.data.ignoreFolders
-			});
-		};
-
-		//read all files according to the J.dataSetting.data.searchFlag
-		len1 = topFolders.length;
-		if (len1===0) {
+			_getFiles(topFolders);
 			return;
 		};
-		var cbk =function(err,d){
 
-			var len2 = topFolders.length;
-			d = (err||d)||{};
-			d.total = len1;
-			d.current = len1-len2;
-
-			$win.trigger(pub.id+'OnGetFiles',[d]);
-
-			if (len2 === 0) {
+		//跟目录
+		topFolders.push({
+			'flag':'',
+			'path':_dir,
+			'includeSubDir':true,
+			'ignoreFolders':J.dataSetting.data.ignoreFolders
+		});
+		//读取根目录
+		fs.readdir(_dir,function(err,files){
+			if (err) {
+				_getFiles(topFolders);
 				return;
 			};
+			topFolders[0].includeSubDir=false;
+			var stat = null,
+				len2 = files.length;
+			//分离目录和文件
+			for (var i = 0; i < len2; i++) {
+				stat = fs.lstatSync(_dir+files[i]);
+				//directory
+				if (!stat.isDirectory()) {
+					continue;
+				}
+				//是否忽略的目录
+				if ( $.inArray(files[i],J.dataSetting.data.ignoreFolders) > -1 ) {
+					continue;
+				};
+				topFolders.push({
+					'flag':files[i],
+					'path':(_dir+files[i]+'\\'),
+					'includeSubDir':true,
+					'ignoreFolders':J.dataSetting.data.ignoreFolders
+				});
+			};//for
 
-			J.dataDir.getFiles(topFolders.splice(0,1)[0],cbk);
+			_getFiles(topFolders);
 
-		};
-
-		J.dataDir.getFiles(topFolders.splice(0,1)[0],cbk);
+		});//fs.readdir
 
 	};
 	/**
