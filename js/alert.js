@@ -12,7 +12,7 @@ J(function($,p,pub){
 		timer:null
 	};
 	p.C={
-		onLoad:function(){
+		_onLoad:function(){
 			p.V.$main.modal({
 				backdrop:'static',
 				show:false

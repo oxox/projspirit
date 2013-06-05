@@ -8,6 +8,7 @@ J(function($,p,pub){
 
 	p.M = {
 		workspaceData:null,
+		curProject:null,
 		curProjectIdx:0,
 		curWorkspaceId:0,
 		isFtpUploading:false,
@@ -15,7 +16,7 @@ J(function($,p,pub){
 			id:0,
 			name:'All'
 		},
-		init:function(){
+		_init:function(){
 			this.reset();
 			this.curProjectIdx = parseInt(J.dbLocal[pub.id+'.curProjectIdx'])||0;
 			this.curWorkspaceId = parseInt(J.dbLocal[pub.id+'.curWorkspaceId'])||0;
@@ -78,7 +79,7 @@ J(function($,p,pub){
 	};
 
 	p.C = {
-		init:function(){
+		_init:function(){
 			$win.on(J.dataWorkspace.id+'OnGetAll',function(e,d){
 				p.M.workspaceData = d.items;
 				p.V.fillWSList(d);
@@ -94,7 +95,7 @@ J(function($,p,pub){
 				J.dataWorkspace.getAll();
 			});
 		},
-		onLoad:function(){
+		_onLoad:function(){
 			p.V.$wsList.on("click","a",function(e){
 				e.preventDefault();
 				if (p.M.curWorkspaceId==parseInt(this.rel)) {
@@ -153,10 +154,40 @@ J(function($,p,pub){
 
 				panel.innerHTML+=html;
 
+				console.log(d);
+
 				panel.setAttribute('data-loaded','1');
+			},
+			progressTimers:{},
+			progressObjs:{},
+			updateProgress:function(d){
+				var pval = ((d.current/d.total)*100).toFixed(2)+'%',
+					id = 'projectProgress'+p.M.curProjectIdx,
+					bgid = 'projectProgressBG'+p.M.curProjectIdx,
+					bdid = 'projectProgressBD'+p.M.curProjectIdx,
+					objs = this.progressObjs[id];
+				if (!objs) {
+					objs = this.progressObjs[id] = {
+						bgobj : document.getElementById(bgid),
+						bdobj : document.getElementById(bdid),
+						obj : document.getElementById(id)
+					};
+				};
+
+				objs.obj.className="proj_loader";
+				objs.bdobj.innerHTML = pval;
+				objs.bgobj.style.width=pval;
+				if (d.current===d.total) {
+					clearTimeout(this.progressTimers[id]);
+					this.progressTimers[id] = setTimeout(function(){
+						objs.bgobj.style.width='0px';
+						objs.obj.className = "proj_loader hide";
+						objs.bdobj.innerHTML="";
+					},600);
+				};
 			}
 		},
-		init:function(){
+		_init:function(){
 			$win.on(J.dataProject.id+'OnDataLoaded',function(e,d){
 				if (!d.isOk) {
 					J.alert.show('Error on '+J.dataProject.id+'OnDataLoaded!');
@@ -170,15 +201,16 @@ J(function($,p,pub){
 				p.project.onProjectSaved(d);
 			}).on(pub.id+'OnSwitchWorkspace',function(e,d){
 				p.project.filterByWorkspace();
-			}).on(J.dataDir.id+'OnGetFiles',function(e,d){
+			}).on(J.dataProject.id+'OnGetFiles',function(e,d){
 				p.project.V.fillFiles(d);
+				p.project.V.updateProgress(d);
 			}).on(J.ftpUpload.id+'OnUploading',function(e){
 				p.M.isFtpUploading = true;
 			}).on(J.ftpUpload.id+'OnUploaded',function(e){
 				p.M.isFtpUploading = false;
 			});
 		},
-		onLoad:function(){
+		_onLoad:function(){
 			$('#fanMenu').fanmenu({
 				'initAngle':30/*(Starting Angle in degree)*/,
 				'angleDisplay' : 60/*(Displacement angle in degree)*/,
@@ -219,6 +251,12 @@ J(function($,p,pub){
 				p.project.openFile(this.getAttribute('data-path'));
 				return false;
 			});
+			
+			//reload project
+			$('#btnReloadProj').on('click',function(e){
+				p.project.reload();
+				return false;
+			});
 
 		},
 		filterByWorkspace:function(){
@@ -252,6 +290,7 @@ J(function($,p,pub){
 			$('#project'+p.M.curProjectIdx).trigger('click');
 		},
 		selectProject:function(obj){
+			p.M.curProject = obj;
 			$("#projectItem"+p.M.curProjectIdx+","+'#projectPanel'+p.M.curProjectIdx).removeClass(g_clActive);
 			J.dbLocal[pub.id+'.curProjectIdx']=p.M.curProjectIdx = parseInt(obj.idx);
 			//Menu state
@@ -286,6 +325,14 @@ J(function($,p,pub){
 			J.dataProject.removeByDir(obj.path);
 
 		},//removeProject
+		//reload the files of the project
+		reload:function(){
+			if(!p.M.curProject){
+				return;
+			}
+			document.getElementById('projectPanel'+p.M.curProjectIdx).innerHTML = "";
+			J.dataProject.getFiles(p.M.curProject.path);
+		},//reload
 		onProjectSaved:function(d){
 			if (!d.isOk) {
 				J.alert.show(d.err.toString());
@@ -353,7 +400,7 @@ J(function($,p,pub){
 
 	//项目扩展面板
 	p.projectExt = {
-		init:function(){
+		_init:function(){
 			$('#btnCloseProjectExt').on('click',function(e){
 				pub.hideExtPanel();
 			});

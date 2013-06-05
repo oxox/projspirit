@@ -36,7 +36,7 @@ J(function($,p,pub){
 	};
 
 	p.C={
-		onLoad:function(){
+		_onLoad:function(){
 
 			$("#btnClose").on("click",function(e){
 

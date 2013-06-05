@@ -223,34 +223,44 @@ J(function($,p,pub){
 			for (var i = len1 - 1; i >= 0; i--) {
 				topFolders.push({
 					'flag':flags1[i],
-					'path':(folderPrefix+flags1[i]+folderSuffix)
+					'path':(folderPrefix+flags1[i]+folderSuffix),
+					'includeSubDir':true,
+					'ignoreFolders':J.dataSetting.data.ignoreFolders
 				});
 			};
 		}else{
 			//跟目录
 			topFolders.push({
-				'flag':'..',
-				'path':_dir
+				'flag':'',
+				'path':_dir,
+				'includeSubDir':true,
+				'ignoreFolders':J.dataSetting.data.ignoreFolders
 			});
-			/*
-			//子目录
-			for (var i = len1 - 1; i >= 0; i--) {
-				topFolders.push({
-					'flag':flags[i],
-					'path':(_dir+flags[i]+'\\')
-				});
-			};
-			*/
 		};
 
 		//read all files according to the J.dataSetting.data.searchFlag
 		len1 = topFolders.length;
-		for (var i = len1 - 1; i >= 0; i--) {
-			J.dataDir.getFiles(topFolders[i],{
-				includeSubDir:true,
-				ignoreDirs:J.dataSetting.data.ignoreFolders
-			});
+		if (len1===0) {
+			return;
 		};
+		var cbk =function(err,d){
+
+			var len2 = topFolders.length;
+			d = (err||d)||{};
+			d.total = len1;
+			d.current = len1-len2;
+
+			$win.trigger(pub.id+'OnGetFiles',[d]);
+
+			if (len2 === 0) {
+				return;
+			};
+
+			J.dataDir.getFiles(topFolders.splice(0,1)[0],cbk);
+
+		};
+
+		J.dataDir.getFiles(topFolders.splice(0,1)[0],cbk);
 
 	};
 	/**

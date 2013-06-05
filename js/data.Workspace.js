@@ -17,12 +17,12 @@ J(function($,p,pub){
 		'modifiedAt'
 	];
 
-	var $win = $(window);
+	var $win = J.base.$win;
 
 	p.sql={
 		createTable:'',
 		getAll:'',
-		init:function(){
+		_init:function(){
 			this.createTable = J.data.getTableSQL(p.tName,pub.fields);
 			this.getAll = J.data.getSelectSQL(p.tName);
 		}
@@ -64,7 +64,7 @@ J(function($,p,pub){
 				
 			});
 		},
-		init:function(){
+		_init:function(){
 			//init table when the ini file is a new one
 			$win.on(J.dataSetting.id+'OnLoaded',function(e,d){
 				if (d.isOk) {

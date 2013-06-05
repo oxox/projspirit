@@ -20,7 +20,7 @@ J(function($,p,pub){
 		M:{
 		},
 		C:{
-			onLoad:function(){
+			_onLoad:function(){
 				this.readFile();
 			},
 			readFile : function(){

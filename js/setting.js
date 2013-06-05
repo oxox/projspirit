@@ -3,7 +3,7 @@ J(function($,p,pub){
 	p.V = {
 		$main:$("#frmMain"),
 		$controlGroups:null,
-		init:function(){
+		_init:function(){
 			this.$fields = this.$main.find('.field_item');
 			this.$controlGroups = this.$main.find('.control-group');
 			//文件夹路径
@@ -55,10 +55,10 @@ J(function($,p,pub){
 	}	
 
 	p.C = {
-		init:function(){
+		_init:function(){
 			//监听事件
 			var id = J.dataSetting.id;
-			$(window).on(id+'OnLoaded',function(e,d){
+			J.base.$win.on(id+'OnLoaded',function(e,d){
 				p.V.render(J.dataSetting.data);
 			}).on(id+"OnSavedError",function(e,d){
 				J.alert.show(d.toString(),{
@@ -70,7 +70,7 @@ J(function($,p,pub){
 				J.alert.show('Successfully Saved!',{duration:1500});
 			});
 		},
-		onLoad:function(){
+		_onLoad:function(){
 
 			$("#btnSave").on('click',function(e){
 

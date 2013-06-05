@@ -6,7 +6,7 @@ J(function($,p,pub){
 		$main:$("#projectEditor"),
 		$title:$("#editorTitle"),
 		$controlGroups:null,
-		onLoad:function(){
+		_onLoad:function(){
 			this.$fields = this.$main.find('.field_item');
 			this.$controlGroups = this.$main.find('.control-group');
 
@@ -96,7 +96,7 @@ J(function($,p,pub){
 		timer:null
 	};
 	p.C={
-		onLoad:function(){
+		_onLoad:function(){
 			p.V.$main.modal({
 				backdrop:'static',
 				show:false

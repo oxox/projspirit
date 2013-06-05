@@ -19,9 +19,9 @@ J(function($,p,pub){
 	};
 
 	p.C = {
-		init:function(){
+		_init:function(){
 
-			$(window).on(J.dataWorkspace.id+'OnGetAll',function(e,d){
+			J.base.$win.on(J.dataWorkspace.id+'OnGetAll',function(e,d){
 				p.V.fillData(d);
 				J.base.updateStatus("Total workspace:"+d.cnt);
 			}).on(J.dataWorkspace.id+'OnDataInited',function(e){
@@ -29,7 +29,7 @@ J(function($,p,pub){
 				J.dataWorkspace.getAll();
 			});
 		},
-		onLoad:function(){
+		_onLoad:function(){
 
 			p.V.$list.on('dblclick','.tr_wsitem',function(e){
 

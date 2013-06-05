@@ -6,14 +6,14 @@ J(function($,p,pub){
 	pub.id = "dataDir";
 
 	var fs = J.base.fs,
-		$win = $(window);
+		path = require('path');
 
-	p.isIgnoreDir = function(_dir,ignoreDirs){
+	p.isIgnoreDir = function(_dir,ignoreFolders){
 		var yep = false,
-			len = ignoreDirs.length;
+			len = ignoreFolders.length;
 
 		for (var i = len - 1; i >= 0; i--) {
-			if( _dir.indexOf(ignoreDirs[i])>=0 ){
+			if( _dir.indexOf(ignoreFolders[i])>=0 ){
 				yep = true;
 				break;
 			}
@@ -22,111 +22,148 @@ J(function($,p,pub){
 
 	};
 
-	p.getFiles = function(_dirObj,_opts){
+	//Get files of specified path
+	p._getFiles = function(dirObj,cbk){
+		fs.readdir(dirObj.path,function(err,files){
+			if (err) {
+				cbk(err,{
+					'isOk':false,
+					'err':err,
+					'errCode':2,
+					'path':dirObj.path
+				});
+				return;
+			};
+			//console.log(files);
+			var d = {
+				'isOk':true,
+				'path':dirObj.path,
+				'flag':dirObj.flag,
+				'files':[],
+				'folders':[],
+				'folderFlags':[],
+				'dirObj':dirObj
+			},stat = null,
+				len2 = files.length,
+				folders1=[],
+				folderFlags1=[];
+
+
+			//分离目录和文件
+			for (var i = len2 - 1; i >= 0; i--) {
+				stat = fs.lstatSync(dirObj.path+files[i]);
+				//directory
+				if (stat.isDirectory()) {
+
+					//是否忽略的目录
+					if ( p.isIgnoreDir(files[i],dirObj.ignoreFolders) ) {
+						continue;
+					};
+
+					d.folders.push(dirObj.path+files[i]+'\\');
+					d.folderFlags.push(dirObj.flag+'\\'+files[i]);
+					folders1.push(dirObj.path+files[i]+'\\');
+					folderFlags1.push(dirObj.flag+'\\'+files[i]);
+					continue;
+				};
+				if (!stat.isFile()) {
+					continue;
+				};
+				//file
+				d.files.push({
+					'flag':dirObj.flag,
+					'path':(dirObj.path+files[i]),
+					'id':J.base.generateFileIdByFilePath(dirObj.path+files[i]),
+					'name':files[i],
+					'ext':path.extname(files[i]).replace('.',''),
+					'dir':dirObj.path,
+					'stat':stat,
+					'isImg':J.base.isImg(files[i]),
+					'url':'file:///'+(dirObj.path+files[i]).replace(/\\/gi,'/'),
+					'size1':function(){
+						return (this.size/1024).toFixed(2);
+					},
+					'mtime1':function(){
+						return new Date(this.mtime.getTime()).toString('yyyy-MM-dd HH:mm:ss');
+						//return this.mtime.getTime();
+					}
+				});
+			};//for
+
+			if ( !dirObj.includeSubDir || (d.folders.length===0) ) {
+				d.cntFile = d.files.length;
+				cbk(null,d);
+				return;
+			};
+
+			//子目录的递归读取
+			var dirObj1= $.extend({},dirObj,{
+				'flag':folderFlags1.splice(0,1)[0],
+				'path':folders1.splice(0,1)[0]
+			}),cbk1 = function(err1,obj1){
+
+				if (!err1) {
+					d.files = d.files.concat(obj1.files);
+				};
+
+				if (folders1.length===0) {
+					d.cntFile = d.files.length;
+					cbk(null,d);
+					return;
+				};
+				dirObj1.flag = folderFlags1.splice(0,1)[0];
+				dirObj1.path = folders1.splice(0,1)[0];
+				p._getFiles(dirObj1,cbk1);
+
+			};
+			p._getFiles(dirObj1,cbk1);
+
+		});//fs.readdir
+	};
+
+	p.getFiles = function(_dirObj,_cbk){
 
 		var _dir = _dirObj.path,
-			_includeSubDir = _opts.includeSubDir||false,
-			_ignoreDirs = _opts.ignoreDirs||[];
+			_includeSubDir = _dirObj.includeSubDir||false,
+			_ignoreFolders = _dirObj.ignoreFolders||[];
 
-		if (p.isIgnoreDir(_dir,_ignoreDirs)) {
+		if (p.isIgnoreDir(_dir,_ignoreFolders)) {
+			_cbk({
+				'isOk':false,
+				'err':_dir+'has been ignored!',
+				'errCode':0,
+				'path':_dir,
+				'dirObj':_dirObj
+			});
 			return;
 		};
 
 		fs.exists(_dir,function(yes){
 			if (!yes) {
-				$win.trigger(pub.id+'OnGetFiles',[{
-					isOk:false,
+				var err0 = {
+					'isOk':false,
 					'err':'Directory Not Exists:'+_dir,
 					'errCode':1,
 					'path':_dir,
 					'dirObj':_dirObj
-				}]);
+				};
+				_cbk(err0);
 				return;
 			};
-
-			fs.readdir(_dir,function(err,files){
-				if (err) {
-					$win.trigger(pub.id+'OnGetFiles',[{
-						isOk:false,
-						'err':err,
-						'errCode':2,
-						'path':_dir,
-						'dirObj':_dirObj
-					}]);
-					return;
-				};
-				//console.log(files);
-				var d = {
-					isOk:true,
-					path:_dir,
-					files:[],
-					folders:[],
-					dirObj:_dirObj
-				},stat = null,
-					len2 = files.length;
-
-				for (var i = len2 - 1; i >= 0; i--) {
-					stat = fs.lstatSync(_dir+files[i]);
-					//directory
-					if (stat.isDirectory()) {
-
-						//是否忽略的目录
-						if ( p.isIgnoreDir(files[i],_ignoreDirs) ) {
-							continue;
-						};
-
-						d.folders.push(_dir+files[i]+'\\');
-						if (_includeSubDir) {
-							p.getFiles({
-								'flag':_dirObj.flag+'\\'+files[i],
-								'path':(_dir+files[i]+'\\')
-							},{
-								includeSubDir:_includeSubDir,
-								ignoreDirs:_ignoreDirs
-							});
-						};
-						continue;
-					};
-					if (!stat.isFile()) {
-						continue;
-					};
-					//file
-					d.files.push({
-						'path':(_dir+files[i]),
-						'id':J.base.generateFileIdByFilePath(_dir+files[i]),
-						'name':files[i],
-						'dir':_dir,
-						'stat':stat,
-						'isImg':J.base.isImg(files[i]),
-						'url':'file:///'+(_dir+files[i]).replace(/\\/gi,'/'),
-						'size1':function(){
-							return (this.size/1024).toFixed(2);
-						},
-						'mtime1':function(){
-							return new Date(this.mtime.getTime()).toString('yyyy-MM-dd HH:mm:ss');
-							//return this.mtime.getTime();
-						}
-					});
-				};//for
-
-				d.cntFile = d.files.length===0?false:d.files.length;
-
-				$win.trigger(pub.id+'OnGetFiles',[d]);
-
-			});//fs.readdir
+			p._getFiles(_dirObj,function(err,d){
+				_cbk(err,d);
+			});
 
 		});//fs.exists
 
 	};
-
-
 	/*
 	 * Get all files in specifed directory
 	 * @param {Object} _dirObj directory object like {flag:'xxx',path:'E:\xxx\yyy\'}
-	 * @param {Object} _opts configuration options. {includeSubDir:true|false,ignoreDirs:['.svn']}
+	 * @param {Function} _cbk callback function
 	 */
-	pub.getFiles = function(_dirObj,_opts){
-		p.getFiles(_dirObj,_opts);
+	pub.getFiles = function(_dirObj,_cbk){
+		p.getFiles(_dirObj,_cbk);
 	};
 
 });

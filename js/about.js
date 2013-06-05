@@ -3,7 +3,7 @@ J(function($,p,pub){
 	var gui = require('nw.gui');
 	
 	p.C= {
-		onLoad:function(){
+		_onLoad:function(){
 
 			J.base.showTip('FWS V'+J.data.version);
 			$("#txtVersion").html(J.data.version);

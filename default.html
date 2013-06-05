@@ -71,6 +71,9 @@
 						<div class="panel_hdin">
                             <!--S 右侧操作 -->
 							<div class="pull-right cfg_acts">
+								<div class="btn-group">
+									<button class="btn" id="btnReloadProj"><i class="icon-refresh"></i>Refresh</button>
+								</div>
 								<div id="btnGroupSVN" class="btn-group">
 									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-random"></i>SVN</button>
 									<button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -215,6 +218,10 @@
 				<a class="lnk_proj" id="project%id%" rel="%id%" href="#projectPanel%id%" data-toggle="tab" data-path="%path%">%name%</a>
 				<div class="navitem_projActs">
 					<a rel="%id%" href="javascript:;" data-path="%path%" class="btn_closeproj"><i class="icon-remove-sign"></i></a>
+				</div>
+				<div id="projectProgress%id%" class="proj_loader hide">
+					<div id="projectProgressBG%id%" class="ploader_bg"></div>
+					<div id="projectProgressBD%id%" class="ploader_bd"></div>
 				</div>
 			</li>
 		</script>

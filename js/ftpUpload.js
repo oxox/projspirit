@@ -22,7 +22,7 @@ J(function($,p,pub) {
 		$fileList:$('#fileListUpload'),
 		$btnFtpUpload:$('#btnFtpUpload'),
 		tplFileItem:'<li id="ftpFile%id%" data-id="%id%" data-path="%path%" data-name="%name%">%name%</li>',
-		init:function(){
+		_init:function(){
 			this.$btnFtpUpload.on('click',function(e){
 				if(this.className.indexOf('disabled')>0){
 					alert('当前项目没有对应的FTP配置信息，请检查workspace配置！');
@@ -106,7 +106,7 @@ J(function($,p,pub) {
 	};
 	//controller
 	p.C={
-		init:function(){
+		_init:function(){
 			J.base.$win.on(J.home.id+'OnSelectProject',function(e,d){
 				p.V.assertUploadable(d.path);
 			});

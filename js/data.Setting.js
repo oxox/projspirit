@@ -28,7 +28,7 @@ J(function($,p,pub){
 
 	//controller
 	p.C = {
-		init:function(){
+		_init:function(){
 
 			fs.exists(J.base.initFile,function(exists){
 

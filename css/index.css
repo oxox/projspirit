@@ -518,6 +518,30 @@
   top: 2px;
   right: 2px;
 }
+.nav_project .proj_loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.nav_project .proj_loader .ploader_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #000;
+  opacity: 0.5;
+  width: 0px;
+  overflow: hidden;
+}
+.nav_project .proj_loader .ploader_bd {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 0.8em;
+  color: #02c4fb;
+}
 .nav_project li {
   position: relative;
 }
@@ -529,7 +553,7 @@
   display: inline;
   position: relative;
   z-index: 1;
-  margin-right: 15px;
+  margin-right: 10px;
   margin-bottom: 10px;
   padding: 5px;
   border: 1px solid #ddd;

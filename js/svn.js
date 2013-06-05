@@ -51,7 +51,7 @@ J(function($,p,pub) {
 				return false;
 			});
 		},
-		init:function(){
+		_init:function(){
 
 			//监听home模块的事件，以便获取当前激活的项目
 			J.base.$win.on(J.home.id+'OnSelectProject',function(e,d){
