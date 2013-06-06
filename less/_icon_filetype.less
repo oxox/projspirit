@@ -1,24 +1,45 @@
-@img:          "../img/icon_filetype.png";
 .icon_file{
-	width:20px;
+	display: inline-block;
 	height:20px;
-	background: url(@img) 0 -180px no-repeat;
+	padding:0 4px;
+	&:after{
+		display:inline-block;
+		content:attr(title);
+		text-align: center;
+		font-size: 10px;
+		text-transform: uppercase;
+		font-style:normal;
+		position: relative;
+		top:-1px;
+	}
+	background-color: #aaaaaa;
+	color:#fff;
 }
 .icon_css{
-	background-position: 0 0;
+	background-color: #628179;
 }
 .icon_jpg,.icon_jpeg{
-	background-position: 0 -30px;
+	background-color: #21aabd;
 }
 .icon_png{
-	background-position: 0 -60px;
+	background-color: #87c033;
 }
 .icon_gif{
-	background-position: 0 -90px;
+	background-color:#625050;
 }
 .icon_htm,.icon_html{
-	background-position: 0 -120px;
+	background-color:#333;
 }
 .icon_js{
-	background-position: 0 -150px;
+	background-color:#ff9c00;
+}
+.icon_txt{
+	background-color:#bbb;
+}
+.icon_folder{
+	background-color:#000;
+	color:@textEMColorInverse;
+}
+.icon_psd{
+	background-color:#be2a4e;
 }

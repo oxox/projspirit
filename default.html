@@ -124,6 +124,33 @@
 												<button class="btn btn-mini" id="btnUpdAll">上传全部</button>
 												<button class="btn btn-mini" id="btnUpdReset">清空</button>
 											</div>
+											<div class="ftpupd_acts fileutil_act clearfix">
+												<label class="checkbox"><input id="cbxCompressCSS" checked="checked" type="checkbox"/>压CSS</label>
+												<label class="checkbox"><input id="cbxCompressJS" checked="checked" type="checkbox"/>压JS</label>
+											</div>
+										</div>
+										<div class="ftpupd_sec ftpupd_bd">
+											<ul id="fileListUpload" class="flist_upload"></ul>
+											<div id="ftpupdProgress" class="ftpupd_progress">
+												<div id="ftpupdProgressBD" class="progress_bd">0%</div>
+												<div id="ftpupdProgressBG" class="progress_bg"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="fileDetail" class="mod_panel ext_box file_detail hide">
+									<div class="panel_hdA">
+										<div class="ftpupd_sec ftpupd_hd">
+											<h3>File Detail</h3>
+										</div>
+									</div>
+									<div class="panel_bdA">
+										<div class="ftpupd_sec ftpupd_hd">
+											<div class="ftpupd_acts">
+												<button class="btn btn-primary btn-mini" id="btnUpdRedo">重试</button>
+												<button class="btn btn-mini" id="btnUpdAll">上传全部</button>
+												<button class="btn btn-mini" id="btnUpdReset">清空</button>
+											</div>
 										</div>
 										<div class="ftpupd_sec ftpupd_bd">
 											<ul id="fileListUpload" class="flist_upload"></ul>
@@ -230,36 +257,26 @@
 		</script>
 		<script type="text/x-mustache-tpl" id="tplProjectDir">
 			<div class="project_dir" data-dir="{{path}}">
-				<div class="pdir_hd">
-					{{#dirObj}}
-					<h3>{{flag}} ({{cntFile}})</h3>
-					{{/dirObj}}
+				{{#dirObj}}
+				<div class="pdir_hd" data-flag="{{flag}}" data-cnt="{{cntFile}}">
+					<h3><span class="pdir_flag">{{flag}}</span><sup class="pdir_cntfile">{{cntFile}}</sup></h3>
 				</div>
+				{{/dirObj}}
 				<div class="pdir_bd">
 				{{#isOk}}
 					{{#cntFile}}
 					<ul class="list_file clearfix">
 						{{#files}}
-						<li draggable="true" data-id="{{id}}" data-name="{{name}}" data-path="{{path}}" ondragstart="J.ftpUpload.onDragStart(event)" ondragend="J.ftpUpload.onDragEnd(event)">
-							{{#isImg}}
-							<div class="item_file item_img" style="background-image:url('{{url}}')">
-							{{/isImg}}
-							{{^isImg}}
-							<div class="item_file">
-							{{/isImg}}
+						<li draggable="true" data-id="{{id}}" data-name="{{name}}" data-flag="{{flag}}" data-path="{{path}}" ondragstart="J.ftpUpload.onDragStart(event)" ondragend="J.ftpUpload.onDragEnd(event)" data-url="{{url}}">
+							{{#stat}}
+							<input type="hidden" id="{{id}}_stat" value='"size1":"{{size1}}","mtime1":"{{mtime1}}"'/>
+							{{/stat}}
+							<div class="item_file file_{{ext}}">
 								<div class="com_bd file_bd">
 									<div class="com_bg"></div>
-									<div class="com_bd">
-										{{#stat}}
-										<div class="file_meta file_size">{{size1}} kb</div>
-										<div class="file_meta file_mtime">{{mtime1}}</div>
-										{{/stat}}
-									</div>
-								</div>
-								<div class="file_ft">
-									<div class="com_bg"></div>
-									<div class="com_bd ft_bd">
-										<a href="#{{path}}" data-path="{{path}}">{{name}}</a>
+									<div class="com_bd clearfix">
+										<div class="pull-left file_icon"><i class="icon_file icon_{{ext}}" title="{{ext}}"></i></div>
+										<div class="pull-left file_name">{{flag}}\{{name}}</div>
 									</div>
 								</div>
 							</div>

@@ -443,29 +443,51 @@
   }
 }
 .icon_file {
-  width: 20px;
+  display: inline-block;
   height: 20px;
-  background: url("../img/icon_filetype.png") 0 -180px no-repeat;
+  padding: 0 4px;
+  background-color: #aaaaaa;
+  color: #fff;
+}
+.icon_file:after {
+  display: inline-block;
+  content: attr(title);
+  text-align: center;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-style: normal;
+  position: relative;
+  top: -1px;
 }
 .icon_css {
-  background-position: 0 0;
+  background-color: #628179;
 }
 .icon_jpg,
 .icon_jpeg {
-  background-position: 0 -30px;
+  background-color: #21aabd;
 }
 .icon_png {
-  background-position: 0 -60px;
+  background-color: #87c033;
 }
 .icon_gif {
-  background-position: 0 -90px;
+  background-color: #625050;
 }
 .icon_htm,
 .icon_html {
-  background-position: 0 -120px;
+  background-color: #333;
 }
 .icon_js {
-  background-position: 0 -150px;
+  background-color: #ff9c00;
+}
+.icon_txt {
+  background-color: #bbb;
+}
+.icon_folder {
+  background-color: #000;
+  color: #c09853;
+}
+.icon_psd {
+  background-color: #be2a4e;
 }
 .fm_wrap {
   width: 145px;
@@ -497,7 +519,7 @@
   height: 100%;
 }
 .project_main .tab-pane {
-  padding: 15px;
+  padding: 5px 15px 10px;
 }
 .project_ext {
   position: relative;
@@ -548,44 +570,51 @@
 .nav_project li:hover .navitem_projActs {
   display: block;
 }
+.list_file {
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
 .list_file li {
   float: left;
   display: inline;
   position: relative;
   z-index: 1;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  border: 1px solid #ddd;
-  width: 210px;
-  background: #eee;
+  width: 100%;
 }
 .list_file li:hover {
   z-index: 2;
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  transform: scale(1.2);
-  background: #333;
-  border-color: #666;
 }
 .list_file li:hover a {
   color: #02c4fb;
 }
-.list_file li.file_changing {
-  border-bottom-color: red;
+.list_file li.file_changing .item_file {
+  color: red;
+}
+.list_file.list_file_c2 li {
+  width: 50%;
+}
+.list_file.list_file_c3 li {
+  width: 33.3333333%;
 }
 .list_file a {
   color: #333;
 }
 .list_file .file_meta {
   color: #999;
+  font-size: 0.9em;
+}
+.list_file .file_icon {
+  margin-right: 5px;
 }
 .list_file .item_file {
   position: relative;
-  background-size: cover;
-  text-align: center;
+  text-align: left;
+  margin-right: 5px;
+  margin-bottom: 2px;
+  padding: 5px;
+}
+.list_file .item_file:hover .com_bg {
+  background-color: #eee;
 }
 .list_file .com_bg {
   position: absolute;
@@ -594,7 +623,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #fff;
+  background-color: #fff;
   opacity: 0.95;
 }
 .list_file .com_bd {
@@ -607,20 +636,33 @@
   -ms-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  height: 80px;
-}
-.list_file .file_ft {
-  position: absolute;
-  z-index: 2;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
 }
 .list_file .item_img .file_bd {
   opacity: 0;
 }
 .list_file .item_img:hover .file_bd {
   opacity: 1;
+}
+.project_dir h3 {
+  font-weight: normal;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+.project_dir .pdir_hd {
+  display: none;
+}
+.project_dir .pdir_flag {
+  text-transform: uppercase;
+}
+.project_dir .pdir_cntfile {
+  padding-left: 3px;
+  color: #c09853;
 }
 .mod_status .tip_project {
   left: 200px;
@@ -635,17 +677,23 @@
 }
 .ftp_upload .ftpupd_hd {
   top: 0;
-  height: 24px;
+  height: 48px;
   overflow: hidden;
 }
 .ftp_upload .ftpupd_bd {
   background: url(../img/cloud_upload.png) center center no-repeat;
-  top: 34px;
+  top: 58px;
   bottom: 0;
   overflow: auto;
 }
 .ftp_upload.dragover {
   background-color: #ffffc2;
+}
+.ftp_upload .fileutil_act label {
+  float: left;
+  margin-bottom: 0px;
+  margin-right: 8px;
+  font-size: 12px;
 }
 .flist_upload {
   position: relative;

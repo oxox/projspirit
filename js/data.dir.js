@@ -75,7 +75,7 @@ J(function($,p,pub){
 					'path':(dirObj.path+files[i]),
 					'id':J.base.generateFileIdByFilePath(dirObj.path+files[i]),
 					'name':files[i],
-					'ext':path.extname(files[i]).replace('.',''),
+					'ext':path.extname(files[i]).replace('.','').toLowerCase(),
 					'dir':dirObj.path,
 					'stat':stat,
 					'isImg':J.base.isImg(files[i]),
