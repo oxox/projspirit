@@ -34,6 +34,8 @@
 	position: relative;
 	.ext_box{
 		z-index: 1;
+		border-left:1px solid #e0e0e0;
+		.box-shadow(-3px 0px 5px rgba(0, 0, 0, 0.75));
 	}
 	.close{
 		position: absolute;
@@ -206,9 +208,12 @@
 		overflow: hidden;
 	}
 	.ftpupd_bd{
+		position: absolute;
 		background: url(../img/cloud_upload.png) center center no-repeat;
 		top:58px;
 		bottom:0;
+		left:0;
+		right:0;
 		overflow: auto;
 	}
 
@@ -258,5 +263,43 @@
 		overflow: hidden;
 		background: #02acdd;
 		.transition();
+	}
+}
+//文件明细模块
+//============================
+.file_detail{
+	text-align: right;
+	.file_name{
+		font-size: 16px;
+		font-weight: bold;
+		background-color:@bgEMColor2;
+		.eb_sec_bd{
+			background-color:@bgEMColor2;
+		}
+	}
+	.file_metas{
+		font-size: 11px;
+		.file_size{
+			
+		}
+	}
+	.file_acts{
+		text-align: left;
+		padding-top:10px;
+		.eb_sec_bd{
+			background-color: @textEMColor;
+		}
+	}
+	.file_thumb{
+		text-align:right;
+		margin-top: 10px;
+		.thumb_img{
+			display: inline-block;
+			.size(150px,150px);
+			background:url(http://img1.icson.com/ICSONAD/201306/1_big20130605154712322516.jpg) no-repeat;
+			background-size: cover;
+			border:2px solid @boxBDColor;
+			border-right:0;
+		}
 	}
 }

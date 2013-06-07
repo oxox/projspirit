@@ -474,7 +474,7 @@
 }
 .icon_htm,
 .icon_html {
-  background-color: #333;
+  background-color: #333333;
 }
 .icon_js {
   background-color: #ff9c00;
@@ -526,6 +526,12 @@
 }
 .project_ext .ext_box {
   z-index: 1;
+  border-left: 1px solid #e0e0e0;
+  -webkit-box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.75);
+  -o-box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.75);
+  -ms-box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.75);
+  box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.75);
 }
 .project_ext .close {
   position: absolute;
@@ -681,9 +687,12 @@
   overflow: hidden;
 }
 .ftp_upload .ftpupd_bd {
+  position: absolute;
   background: url(../img/cloud_upload.png) center center no-repeat;
   top: 58px;
   bottom: 0;
+  left: 0;
+  right: 0;
   overflow: auto;
 }
 .ftp_upload.dragover {
@@ -736,4 +745,38 @@
   -ms-transition: all 0.4s linear;
   -o-transition: all 0.4s linear;
   transition: all 0.4s linear;
+}
+.file_detail {
+  text-align: right;
+}
+.file_detail .file_name {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #625050;
+}
+.file_detail .file_name .eb_sec_bd {
+  background-color: #625050;
+}
+.file_detail .file_metas {
+  font-size: 11px;
+}
+.file_detail .file_acts {
+  text-align: left;
+  padding-top: 10px;
+}
+.file_detail .file_acts .eb_sec_bd {
+  background-color: #02c4fb;
+}
+.file_detail .file_thumb {
+  text-align: right;
+  margin-top: 10px;
+}
+.file_detail .file_thumb .thumb_img {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  background: url(http://img1.icson.com/ICSONAD/201306/1_big20130605154712322516.jpg) no-repeat;
+  background-size: cover;
+  border: 2px solid #ebebeb;
+  border-right: 0;
 }

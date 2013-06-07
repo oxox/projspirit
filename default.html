@@ -64,12 +64,12 @@
 			</div>
 		</div>
 
-		<div id="secA" class="container-fluid sec_A">
+		<div class="container-fluid sec_A">
 			<div class="row-fluid row_A">
 				<div class="mod_panel">
 					<div class="panel_hd">
 						<div class="panel_hdin">
-                            <!--S 右侧操作 -->
+							<!--S 右侧操作 -->
 							<div class="pull-right cfg_acts">
 								<div class="btn-group">
 									<button class="btn" id="btnReloadProj"><i class="icon-refresh"></i>Refresh</button>
@@ -109,16 +109,17 @@
 							<div class="fbox_bd">
 								<div class="tab-content project_panes" id="projectPanelList"></div>
 							</div>
-							<div id="projectExt" class="fbox_sidebar project_ext hide">
+							<div id="projectExt" class="fbox_sidebar project_ext">
 								<button id="btnCloseProjectExt" type="button" class="close" aria-hidden="true">&times;</button>
+								<!--S-ftp upload-->
 								<div id="ftpUpload" ondragover="J.ftpUpload.onDragOver(event)" ondrop="J.ftpUpload.onDrop(event)" class="mod_panel ext_box ftp_upload hide">
 									<div class="panel_hdA">
-										<div class="ftpupd_sec ftpupd_hd">
+										<div class="ext_box_hd">
 											<h3>FTP Upload</h3>
 										</div>
 									</div>
 									<div class="panel_bdA">
-										<div class="ftpupd_sec ftpupd_hd">
+										<div class="ext_box_hd ftpupd_hd">
 											<div class="ftpupd_acts">
 												<button class="btn btn-primary btn-mini" id="btnUpdRedo">重试</button>
 												<button class="btn btn-mini" id="btnUpdAll">上传全部</button>
@@ -129,7 +130,7 @@
 												<label class="checkbox"><input id="cbxCompressJS" checked="checked" type="checkbox"/>压JS</label>
 											</div>
 										</div>
-										<div class="ftpupd_sec ftpupd_bd">
+										<div class="ext_box_bd ftpupd_bd">
 											<ul id="fileListUpload" class="flist_upload"></ul>
 											<div id="ftpupdProgress" class="ftpupd_progress">
 												<div id="ftpupdProgressBD" class="progress_bd">0%</div>
@@ -138,29 +139,55 @@
 										</div>
 									</div>
 								</div>
-								<div id="fileDetail" class="mod_panel ext_box file_detail hide">
+								<!--E-ftp upload-->
+								<!--S-file detail-->
+								<div id="fileDetailBox" class="mod_panel ext_box fd_box">
 									<div class="panel_hdA">
-										<div class="ftpupd_sec ftpupd_hd">
+										<div class="ext_box_hd">
 											<h3>File Detail</h3>
 										</div>
 									</div>
 									<div class="panel_bdA">
-										<div class="ftpupd_sec ftpupd_hd">
-											<div class="ftpupd_acts">
-												<button class="btn btn-primary btn-mini" id="btnUpdRedo">重试</button>
-												<button class="btn btn-mini" id="btnUpdAll">上传全部</button>
-												<button class="btn btn-mini" id="btnUpdReset">清空</button>
-											</div>
-										</div>
-										<div class="ftpupd_sec ftpupd_bd">
-											<ul id="fileListUpload" class="flist_upload"></ul>
-											<div id="ftpupdProgress" class="ftpupd_progress">
-												<div id="ftpupdProgressBD" class="progress_bd">0%</div>
-												<div id="ftpupdProgressBG" class="progress_bg"></div>
+										<div class="ext_box_hd">
+											<div id="fileDetail" class="file_detail">
+												<div class="file_name">
+													<div class="eb_sec">
+														<div class="eb_sec_bd">app.js</div>
+													</div>
+												</div>
+												<div class="file_metas">
+													<div class="eb_sec">
+														<div class="eb_sec_bd file_size">112.23kb</div>
+													</div>
+													<div class="eb_sec">
+														<div class="eb_sec_bd file_mtime">2013-06-07 11:33</div>
+													</div>
+												</div>
+												<div class="file_acts">
+													<div class="file_act fact_edit">
+														<div class="eb_sec">
+															<div class="eb_sec_bd"><i class="icon-edit"></i><a href="#">编辑&gt;&gt;</a></div>
+														</div>
+													</div>
+													<div class="file_act fact_open">
+														<div class="eb_sec">
+															<div class="eb_sec_bd"><i class="icon-hand-up"></i><a href="#">打开&gt;&gt;</a></div>
+														</div>
+													</div>
+													<div class="file_act fact_explorer">
+														<div class="eb_sec">
+															<div class="eb_sec_bd"><i class="icon-folder-open"></i><a href="#">打开所在文件夹&gt;&gt;</a></div>
+														</div>
+													</div>
+												</div>
+												<div class="file_thumb">
+													<div class="thumb_img"></div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+								<!--E-file detail-->
 							</div>
 						</div><!--/project_main-->
 					</div>
@@ -293,6 +320,9 @@
 				{{/isOk}}
 				</div>
 			</div>
+		</script>
+		<script type="text/x-mustache-tpl" id="tplFileDetail">
+
 		</script>
 		<!--/Templates-->
 
