@@ -4,6 +4,11 @@
 @import "_loader.less";
 @import "_icon_filetype.less";
 
+body{
+	&.dragover{
+		background-color: yellow;
+	}
+}
 .fm_wrap{
 	.size(145px,130px);
 	bottom:32px;
@@ -100,6 +105,14 @@
 			a{
 				color:@textEMColor;
 			}
+			.com_bg{
+				background-color: #eee;
+			}
+		}
+		&.active,&.active:hover{
+			.com_bg{
+				background-color: darken(#eee,10%);
+			}
 		}
 		&.file_changing{
 			.item_file{
@@ -133,11 +146,6 @@
 		margin-right: 5px;
 		margin-bottom: 2px;
 		padding:5px;
-		&:hover{
-			.com_bg{
-				background-color: #eee;
-			}
-		}
 	}
 	.com_bg{
 		position: absolute;
@@ -268,35 +276,46 @@
 //文件明细模块
 //============================
 .file_detail{
-	text-align: right;
+	overflow: hidden;
+	.eb_sec_ani{
+		opacity: 0;
+	}
+	.eb_sec{
+		text-align: right;
+		.transition(all .4s ease-in-out);
+	}
+	.eb_sec1{
+		text-align: left;
+	}
+	.eb_sec2{
+		text-align: center;
+	}
+	.eb_sec_playani{
+		opacity: 1;
+	}
 	.file_name{
 		font-size: 16px;
 		font-weight: bold;
-		background-color:@bgEMColor2;
-		.eb_sec_bd{
+		.eb_sec,.eb_sec_bd{
 			background-color:@bgEMColor2;
 		}
 	}
 	.file_metas{
 		font-size: 11px;
-		.file_size{
-			
-		}
 	}
 	.file_acts{
-		text-align: left;
 		padding-top:10px;
 		.eb_sec_bd{
 			background-color: @textEMColor;
 		}
 	}
 	.file_thumb{
-		text-align:right;
 		margin-top: 10px;
 		.thumb_img{
 			display: inline-block;
 			.size(150px,150px);
-			background:url(http://img1.icson.com/ICSONAD/201306/1_big20130605154712322516.jpg) no-repeat;
+			background-position: center center;
+			background-repeat: no-repeat;
 			background-size: cover;
 			border:2px solid @boxBDColor;
 			border-right:0;

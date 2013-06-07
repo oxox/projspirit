@@ -87,7 +87,7 @@ J(function($,p,pub) {
 		},
 		invoke:function(flag){
 
-			if (!this.curProject) {
+			if (!this.curProject||this.curProject.path==='') {
 				J.alert.show('没有选中任何项目！');
 				return;
 			};

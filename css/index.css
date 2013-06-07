@@ -489,6 +489,9 @@
 .icon_psd {
   background-color: #be2a4e;
 }
+body.dragover {
+  background-color: yellow;
+}
 .fm_wrap {
   width: 145px;
   height: 130px;
@@ -593,6 +596,13 @@
 .list_file li:hover a {
   color: #02c4fb;
 }
+.list_file li:hover .com_bg {
+  background-color: #eee;
+}
+.list_file li.active .com_bg,
+.list_file li.active:hover .com_bg {
+  background-color: #d5d5d5;
+}
 .list_file li.file_changing .item_file {
   color: red;
 }
@@ -618,9 +628,6 @@
   margin-right: 5px;
   margin-bottom: 2px;
   padding: 5px;
-}
-.list_file .item_file:hover .com_bg {
-  background-color: #eee;
 }
 .list_file .com_bg {
   position: absolute;
@@ -747,13 +754,33 @@
   transition: all 0.4s linear;
 }
 .file_detail {
+  overflow: hidden;
+}
+.file_detail .eb_sec_ani {
+  opacity: 0;
+}
+.file_detail .eb_sec {
   text-align: right;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+.file_detail .eb_sec1 {
+  text-align: left;
+}
+.file_detail .eb_sec2 {
+  text-align: center;
+}
+.file_detail .eb_sec_playani {
+  opacity: 1;
 }
 .file_detail .file_name {
   font-size: 16px;
   font-weight: bold;
-  background-color: #625050;
 }
+.file_detail .file_name .eb_sec,
 .file_detail .file_name .eb_sec_bd {
   background-color: #625050;
 }
@@ -761,21 +788,20 @@
   font-size: 11px;
 }
 .file_detail .file_acts {
-  text-align: left;
   padding-top: 10px;
 }
 .file_detail .file_acts .eb_sec_bd {
   background-color: #02c4fb;
 }
 .file_detail .file_thumb {
-  text-align: right;
   margin-top: 10px;
 }
 .file_detail .file_thumb .thumb_img {
   display: inline-block;
   width: 150px;
   height: 150px;
-  background: url(http://img1.icson.com/ICSONAD/201306/1_big20130605154712322516.jpg) no-repeat;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-size: cover;
   border: 2px solid #ebebeb;
   border-right: 0;

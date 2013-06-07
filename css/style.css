@@ -305,10 +305,6 @@ footer {
 }
 .eb_sec {
   margin-bottom: 5px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  overflow: hidden;
 }
 .eb_sec i {
   margin-right: 5px;
@@ -317,6 +313,11 @@ footer {
   color: #fff;
   background-color: #aaaaaa;
   padding: 3px 10px 3px 10px;
+  max-width: 189px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
   display: inline-block;
 }
 .eb_sec_bd a {

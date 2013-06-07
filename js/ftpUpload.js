@@ -18,7 +18,7 @@ J(function($,p,pub) {
 	};
 
 	p.V = {
-		$main:$('#ftpUpload'),
+		$main:$('#ftpUploadBox'),
 		$fileList:$('#fileListUpload'),
 		$btnFtpUpload:$('#btnFtpUpload'),
 		tplFileItem:'<li id="ftpFile%id%" data-id="%id%" data-path="%path%" data-name="%name%">%name%</li>',
@@ -63,7 +63,7 @@ J(function($,p,pub) {
 
 		},
 		show:function(){
-			J.home.showExtPanel('ftpUpload');
+			J.home.showExtPanel('ftpUploadBox');
 		},
 		highlight:function(){
 			this.$main.addClass('dragover');
@@ -355,8 +355,8 @@ J(function($,p,pub) {
 				p.M.ftp = ftp;
 				if (err) {
 					J.alert.show(err.toString());
-					console.log(err);
-					console.log(res);
+					J.base.log(err);
+					J.base.log(res);
 					return;
 				};
 				cbk&&cbk();

@@ -36,6 +36,17 @@ J(function($,p,pub){
 	};
 
 	p.C={
+		_init:function(){
+			//Add error event listener
+			window.addEventListener('error', function (err) {
+				var message = '---error---\n' + err.filename + ':' + err.lineno + '\n' + err.message + '\n\n';
+				alert(message);
+			}, false);
+
+			process.on('uncaughtException', function (err) {
+				alert('---uncaughtException---\n' + err.stack + '\n\n');
+			});
+		},
 		_onLoad:function(){
 
 			$("#btnClose").on("click",function(e){
@@ -163,7 +174,12 @@ J(function($,p,pub){
 	 * @param {String} filePath 文件路径
 	 */
 	pub.generateFileIdByFilePath = function(filePath){
-		filePath = filePath.replace(/\\/gi,'-').replace(/\//gi,'-').replace(/\./gi,'_').replace(/:/gi,'');
+		filePath = filePath.replace(/\\/gi,'-')
+			.replace(/\//gi,'-')
+			.replace(/\./gi,'_')
+			.replace(/:/gi,'')
+			.replace(/ /gi,'-')
+			.replace(/&/gi,'-');
 		return filePath;
 	};
 
@@ -205,6 +221,20 @@ J(function($,p,pub){
 		setTimeout(function(){
 			rock();
 		},delay);
+	};
+	/**
+	 * 打开文件的指定文件夹
+	 * @param {String} filePath filePath
+	 */
+	pub.openFileInFolder = function(filePath){
+		pub.gui.Shell.showItemInFolder(filePath);
+	};
+
+	/**
+	 * normalized log function
+	 */
+	pub.log=function(obj){
+		console&&console.log&&console.log(obj);
 	};
 
 });

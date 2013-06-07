@@ -138,7 +138,7 @@ J(function($,p,pub){
 			$projectNavList:$("#projectNavList"),
 			$projectPanelList:$("#projectPanelList"),
 			$projectMain:$("#projectMain"),
-			fillFiles:function(d){
+			fillFiles:function(d){//TODO：move to file.js
 				//d.errCode为1时为目录不存在，为2时目录读取失败
 				if ( (!d.isOk) && (d.errCode==1) ) {
 					return;
@@ -267,7 +267,7 @@ J(function($,p,pub){
 			this.V.$projectPanelList.empty();
 			
 			if ((len=data.length)==0) {
-				document.getElementById('projectTip').innerHTML = this.V.tplNoProject;
+				pub.setProjectTip(this.V.tplNoProject);
 				J.dbLocal[pub.id+'.curProjectIdx']=p.M.curProjectIdx = 0;
 				return;
 			};
@@ -280,7 +280,12 @@ J(function($,p,pub){
 			this.V.$projectPanelList.append(htmlPanel.join(''));
 		},
 		initSelected:function(){
-			$('#project'+p.M.curProjectIdx).trigger('click');
+			var $obj = $('#project'+p.M.curProjectIdx);
+			if ($obj.length===0) {
+				$win.trigger(pub.id+'OnSelectProject',[{path:''}])
+				return;
+			};
+			$obj.trigger('click');
 		},
 		selectProject:function(obj){
 			p.M.curProject = obj;
@@ -293,7 +298,7 @@ J(function($,p,pub){
 			$panel.addClass(g_clActive);
 			this.V.$activeProjectPanel = $panel;
 			//Tip state
-			document.getElementById('projectTip').innerHTML = obj.path;
+			pub.setProjectTip(obj.path);
 
 			//folder watching
 			J.base.fs.watch(obj.path,function(evt,fileName){
@@ -362,24 +367,6 @@ J(function($,p,pub){
 			J.dataProject.addDirAsProject(_dir);
 
 		},
-		openFile:function(filePath){
-			//获取配置的程序
-			var exe = J.dataSetting.getExeByFile(filePath);
-			if ( (!exe) || (exe.length==0) ) {
-				//系统默认打开方式
-				J.base.gui.Shell.openItem(filePath);
-				return;
-			};
-			//reference:http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback
-			var child = cprocess.execFile(exe,[filePath],function(err,stdout,stderr){
-				//console.info('stdout',stdout);
-				//console.info('stderr',stderr);
-				if (err!==null) {
-					J.alert.show(err.toString());
-				};
-			});
-			//console.info('child',child);
-		},//openFile
 		onWatchingDir:function(evt,fileName){
 			this.V.$activeProjectPanel.find("li").each(function(i,o){
 				var data_path = o.getAttribute('data-path');
@@ -452,6 +439,12 @@ J(function($,p,pub){
 			});
 		});
 		return items;
+	};
+	/**
+	 * 设置提示信息
+	 */
+	pub.setProjectTip = function(txt){
+		document.getElementById('projectTip').innerHTML=txt;
 	};
 
 });
