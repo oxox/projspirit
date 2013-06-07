@@ -184,6 +184,7 @@
 													<div class="thumb_img"></div>
 												</div>
 											</div>
+											<!--file_detail-->
 										</div>
 									</div>
 								</div>
@@ -294,10 +295,7 @@
 					{{#cntFile}}
 					<ul class="list_file clearfix">
 						{{#files}}
-						<li draggable="true" data-id="{{id}}" data-name="{{name}}" data-flag="{{flag}}" data-path="{{path}}" ondragstart="J.ftpUpload.onDragStart(event)" ondragend="J.ftpUpload.onDragEnd(event)" data-url="{{url}}">
-							{{#stat}}
-							<input type="hidden" id="{{id}}_stat" value='"size1":"{{size1}}","mtime1":"{{mtime1}}"'/>
-							{{/stat}}
+						<li draggable="true" ondragstart="J.ftpUpload.onDragStart(event)" ondragend="J.ftpUpload.onDragEnd(event)" data-id="{{id}}">
 							<div class="item_file file_{{ext}}">
 								<div class="com_bd file_bd">
 									<div class="com_bg"></div>
@@ -322,11 +320,43 @@
 			</div>
 		</script>
 		<script type="text/x-mustache-tpl" id="tplFileDetail">
-
+			<div class="file_name">
+				<div class="eb_sec">
+					<div class="eb_sec_bd">{{name}}</div>
+				</div>
+			</div>
+			<div class="file_metas">
+				<div class="eb_sec">
+					<div class="eb_sec_bd file_size">{{size}}kb</div>
+				</div>
+				<div class="eb_sec">
+					<div class="eb_sec_bd file_mtime">{{mtime}}</div>
+				</div>
+			</div>
+			<div class="file_acts">
+				<div class="file_act fact_edit">
+					<div class="eb_sec">
+						<div class="eb_sec_bd"><i class="icon-edit"></i><a class="btn_fedit" rel="{{path}}" href="javascript:;">编辑&gt;&gt;</a></div>
+					</div>
+				</div>
+				<div class="file_act fact_open">
+					<div class="eb_sec">
+						<div class="eb_sec_bd"><i class="icon-hand-up"></i><a class="btn_fopen" rel="{{path}}" href="javascript:;">打开&gt;&gt;</a></div>
+					</div>
+				</div>
+				<div class="file_act fact_explorer">
+					<div class="eb_sec">
+						<div class="eb_sec_bd"><i class="icon-folder-open"></i><a class="btn_fopendir" rel="{{dir}}" href="javascript:;">打开所在文件夹&gt;&gt;</a></div>
+					</div>
+				</div>
+			</div>
+			<div class="file_thumb">
+				<div class="thumb_img"></div>
+			</div>
 		</script>
 		<!--/Templates-->
 
-		<!-- Le javascript
+		<!-- javascripts - merge when being published!
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="js/lib/jquery.min.js"></script>
@@ -348,6 +378,7 @@
 		<script src="js/ftpUpload.js"></script>
 		<script src="js/svn.js"></script>
 		<script src="js/default.js"></script>
+		<script src="js/file.js"></script>
 		<script type="text/javascript">
 			J.init({});
 		</script>

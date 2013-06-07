@@ -42,6 +42,9 @@ button,
 .modal.fade.in {
   top: 20%;
 }
+.btn i {
+  margin-right: 3px;
+}
 .navbar-innerbd {
   position: relative;
 }
@@ -89,7 +92,7 @@ button,
 }
 .mod_panel h1 {
   margin: 0;
-  font-size: 30px;
+  font-size: 28px;
   line-height: 1.2em;
   text-transform: uppercase;
 }
@@ -139,7 +142,10 @@ button,
   border-bottom: 1px solid #666666;
 }
 .mod_panel .panel_hdin {
-  padding: 5px 5px 0;
+  padding: 5px 10px 0;
+}
+.mod_panel .panel_bdin {
+  padding: 10px 15px;
 }
 .mod_flexbox {
   display: -moz-box;

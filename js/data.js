@@ -15,6 +15,7 @@ J(function($,p,pub){
 	
 	J.db = openDatabase(pub.packageJson.name,'1.0','db for '+pub.packageJson.name,4*1024*1024);
 	J.dbLocal = localStorage;
+	J.session = sessionStorage;
 
 	/**
 	 * 获取当前工作空间

@@ -154,8 +154,6 @@ J(function($,p,pub){
 
 				panel.innerHTML+=html;
 
-				console.log(d);
-
 				panel.setAttribute('data-loaded','1');
 			},
 			progressTimers:{},
@@ -247,11 +245,6 @@ J(function($,p,pub){
 				return false;
 			});
 
-			$("#projectPanelList").on('click','a',function(e){
-				p.project.openFile(this.getAttribute('data-path'));
-				return false;
-			});
-			
 			//reload project
 			$('#btnReloadProj').on('click',function(e){
 				p.project.reload();

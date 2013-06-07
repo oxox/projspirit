@@ -77,16 +77,13 @@ J(function($,p,pub){
 					'name':files[i],
 					'ext':path.extname(files[i]).replace('.','').toLowerCase(),
 					'dir':dirObj.path,
-					'stat':stat,
 					'isImg':J.base.isImg(files[i]),
 					'url':'file:///'+(dirObj.path+files[i]).replace(/\\/gi,'/'),
-					'size1':function(){
-						return (this.size/1024).toFixed(2);
-					},
-					'mtime1':function(){
-						return new Date(this.mtime.getTime()).toString('yyyy-MM-dd HH:mm:ss');
-						//return this.mtime.getTime();
-					}
+					'size':(stat.size/1024).toFixed(2),
+					'mtime':new Date(stat.mtime.getTime()).toString('yyyy-MM-dd HH:mm:ss'),
+					'ctime':new Date(stat.ctime.getTime()).toString('yyyy-MM-dd HH:mm:ss'),
+					/*access time--is the time when the data of a file was last accessed*/
+					'atime':new Date(stat.atime.getTime()).toString('yyyy-MM-dd HH:mm:ss')
 				});
 			};//for
 
