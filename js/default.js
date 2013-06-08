@@ -401,6 +401,7 @@ J(function($,p,pub){
 	pub.showExtPanel = function(extBoxId){
 		$('#projectExt').removeClass("hide")
 			.find('.ext_box')
+			.addClass('hide')
 			.filter('#'+extBoxId).removeClass('hide');
 	};
 	/**

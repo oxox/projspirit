@@ -1,4 +1,10 @@
 @import "_mixins.less";
+.app-loader-size(@size:100){
+    font-size: ~'{@size}px';
+    @size1:@size/2;
+    margin-left: '-{@size1}px';
+    margin-top: '-{@size1}px';
+}
 .mod_loader{
 	position: absolute;
 	top:0;
@@ -19,15 +25,13 @@
 .mod_loader_bd{
 	position: absolute;
 	z-index: 2;
-	font-size: 100px;
 	width: 1em;
 	height: 1em;
 	border-radius: 50%;
 	border: .01em solid rgba(150,150,150,0.1);
 	top:50%;
 	left:50%;
-	margin-left: -50px;
-	margin-top: -50px;
+    .app-loader-size();
 }
 .mod_loader_dot{
 	position: absolute;

@@ -150,15 +150,15 @@
 .mod_loader_bd {
   position: absolute;
   z-index: 2;
-  font-size: 100px;
   width: 1em;
   height: 1em;
   border-radius: 50%;
   border: 0.01em solid rgba(150, 150, 150, 0.1);
   top: 50%;
   left: 50%;
-  margin-left: -50px;
-  margin-top: -50px;
+  font-size: {@size}px;
+  margin-left: '-{@size1}px';
+  margin-top: '-{@size1}px';
 }
 .mod_loader_dot {
   position: absolute;
@@ -752,6 +752,29 @@ body.dragover {
   -ms-transition: all 0.4s linear;
   -o-transition: all 0.4s linear;
   transition: all 0.4s linear;
+}
+.ftpupd_loading,
+.ftpupd_loading_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.ftpupd_loading_bg {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.ftpupd_loading_bd {
+  width: 100%;
+  height: 22px;
+  color: #c09853;
+  position: absolute;
+  top: 50%;
+  margin-top: -11px;
+  text-align: center;
+}
+.ftpupd_loading_bd.error {
+  color: red;
 }
 .file_detail {
   overflow: hidden;

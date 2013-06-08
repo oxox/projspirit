@@ -273,6 +273,27 @@ body{
 		.transition();
 	}
 }
+.ftpupd_loading,.ftpupd_loading_bg{
+	position: absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+}
+.ftpupd_loading_bg{
+	background-color: rgba(0,0,0,0.5);
+}
+.ftpupd_loading_bd{
+	.size(100%,22px);
+	color:@textEMColorInverse;
+	position: absolute;
+	top:50%;
+	margin-top: -11px;
+	text-align:center;
+	&.error{
+		color:red;
+	}
+}
 //文件明细模块
 //============================
 .file_detail{

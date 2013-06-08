@@ -1,5 +1,5 @@
 /**
- * Ftp上传模块
+ * Ftp上传模块using jsftp
  */
 J(function($,p,pub) {
 	pub.id = 'ftpUpload';
@@ -21,6 +21,8 @@ J(function($,p,pub) {
 		$main:$('#ftpUploadBox'),
 		$fileList:$('#fileListUpload'),
 		$btnFtpUpload:$('#btnFtpUpload'),
+		$loading:$('#ftpUploadLoading'),
+		$loadingBD:$('#ftpUploadLoadingBD'),
 		tplFileItem:'<li id="ftpFile%id%" data-id="%id%" data-path="%path%" data-name="%name%">%name%</li>',
 		_init:function(){
 			this.$btnFtpUpload.on('click',function(e){
@@ -29,8 +31,9 @@ J(function($,p,pub) {
 					return;
 				}
 				//FTP登录验证
+				p.V.show();
 				p.C.ftpAuth(function(){
-					p.V.show();
+					p.V.show(true);
 				});
 				
 			});
@@ -62,8 +65,18 @@ J(function($,p,pub) {
 			});
 
 		},
-		show:function(){
+		show:function(tip){
+			if (tip===true) {
+				this.$loading.addClass('hide');
+				return;
+			};
+			if (typeof(tip)==='string') {
+				this.$loadingBD.addClass('error').html(tip);
+				return;
+			};
+			this.$loadingBD.removeClass('error').html(this.$loadingBD.attr('data-tip'));
 			J.home.showExtPanel('ftpUploadBox');
+			this.$loading.removeClass('hide');
 		},
 		highlight:function(){
 			this.$main.addClass('dragover');
@@ -345,22 +358,33 @@ J(function($,p,pub) {
 				return;
 			};
 
-			var ftp = ftps[(wsInfo.ftpId+wsInfo.ftpUser)]||new jsftp({
-				host:wsInfo.ftpId,
-				port:wsInfo.ftpPort
-			});
-			
+			var ftp = ftps[(wsInfo.ftpId+wsInfo.ftpUser)];
+			if (!ftp) {
+				ftps[(wsInfo.ftpId+wsInfo.ftpUser)]=ftp=new jsftp({
+					host:wsInfo.ftpId,
+					port:wsInfo.ftpPort,
+					onError:function(err){
+						p.V.show(err.toString());
+						ftp.destroy();
+						delete ftps[(wsInfo.ftpId+wsInfo.ftpUser)];
+					}
+				});
+			};
 			//authenticate the user
-			ftp.auth(wsInfo.ftpUser,wsInfo.ftpPwd,function(err,res){
-				p.M.ftp = ftp;
-				if (err) {
-					J.alert.show(err.toString());
-					J.base.log(err);
-					J.base.log(res);
-					return;
-				};
+			if (ftp.authenticated) {
 				cbk&&cbk();
-			});
+			}else{
+				ftp.auth(wsInfo.ftpUser,wsInfo.ftpPwd,function(err,res){
+					p.M.ftp = ftp;
+					if (err) {
+						J.alert.show(err.toString());
+						J.base.log(err);
+						J.base.log(res);
+						return;
+					};
+					cbk&&cbk();
+				});
+			}
 		},//ftpAuth
 		//递归创建目录
 		mkd:function(remoteFolder,rootPath,cbk){
