@@ -163,4 +163,29 @@ J(function($,p,pub){
 		p.getFiles(_dirObj,_cbk);
 	};
 
+	/**
+	 * get the directory containing .svn or _svn folder
+	 */
+	pub.getSVNDir = function(_dir){
+		//fs.existsSync();
+		var test = function(flag){
+			var dirParts = _dir.split('\\'),
+				exists = false, 
+				tempPath = null;
+			while( (!exists) && (dirParts.length!==0) ){
+				tempPath = dirParts.concat([flag]).join('\\');
+				exists = fs.existsSync(tempPath);
+				dirParts.pop();
+			}//while
+			return ({'exists':exists,'path':tempPath});
+		};
+
+		var obj = test('.svn');
+		if (obj.exists) {
+			return obj.path;
+		};
+		obj = test('_svn');
+		return (obj.exists?obj.path:null);
+	};
+
 });

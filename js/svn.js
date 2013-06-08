@@ -91,16 +91,22 @@ J(function($,p,pub) {
 				J.alert.show('没有选中任何项目！');
 				return;
 			};
+			var _path = J.dataDir.getSVNDir(this.curProject.path);
+
+			if (!_path) {
+				J.alert.show('无SVN元信息！请确认该目录在使用svn进行版本管理！');
+				return;
+			};
 
 			switch(flag){
 				case '1':
-					this.cmd('commit',this.curProject.path);
+					this.cmd('commit',_path);
 					break;
 				case '2':
-					this.cmd('update',this.curProject.path);
+					this.cmd('update',_path);
 					break;
 				case '3':
-					this.cmd('log',this.curProject.path);
+					this.cmd('log',_path);
 					break;
 				default:
 					break;

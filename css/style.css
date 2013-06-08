@@ -83,6 +83,16 @@ button,
   right: 0px;
   border-radius: 50%;
 }
+.mod_logo {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url(../icon.png) no-repeat;
+  background-size: cover;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
 .mod_panel {
   position: absolute;
   top: 0;
