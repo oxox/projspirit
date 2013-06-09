@@ -3,6 +3,7 @@
 @import "_jquery.fanmenu.less";
 @import "_loader.less";
 @import "_icon_filetype.less";
+@import "_index-responsive.less";
 
 body{
 	&.dragover{
@@ -32,10 +33,11 @@ body{
 		height:100%;
 	}
 	.tab-pane{
-		padding:5px 15px 10px;
+		padding:5px ~'@{tabPanelGapWidth}px' 10px;
 	}
 }
 .project_ext{
+	display: none;
 	position: relative;
 	.ext_box{
 		z-index: 1;
@@ -50,6 +52,13 @@ body{
 		font-size: 1.5em;
 	}
 }
+
+.project_hasext{
+	.project_ext{
+		display: block !important;
+	}
+}
+
 .nav_project{
 	.navitem_projActs{
 		display: none;
@@ -120,16 +129,6 @@ body{
 			}
 		}
 	}
-	&.list_file_c2{
-		li{
-			width:50%;
-		}
-	}
-	&.list_file_c3{
-		li{
-			width:33.3333333%;
-		}
-	}
 	a{
 		color:#333;
 	}
@@ -137,15 +136,18 @@ body{
 		color:#999;
 		font-size: 0.9em;
 	}
+	.file_icon,.file_name{
+		.text-overflow-hidden();
+	}
 	.file_icon{
-		margin-right: 5px;
+		max-width: ~'@{iconFileMaxWidth}px';
+		margin-right: ~'@{iconFileGapWidth}px';
 	}
 	.item_file{
 		position: relative;
 		text-align: left;
-		margin-right: 5px;
 		margin-bottom: 2px;
-		padding:5px;
+		padding:~'@{itemFilePadding}px';
 	}
 	.com_bg{
 		position: absolute;
@@ -178,6 +180,7 @@ body{
 		}
 	}
 }
+
 .project_dir{
 	h3{
 		font-weight: normal;
@@ -232,7 +235,7 @@ body{
 		label{
 			float:left;
 			margin-bottom: 0px;
-			margin-right: 8px;
+			margin-right: 6px;
 			font-size: 12px;
 		}
 	}

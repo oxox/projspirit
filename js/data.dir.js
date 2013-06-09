@@ -175,6 +175,7 @@ J(function($,p,pub){
 			while( (!exists) && (dirParts.length!==0) ){
 				tempPath = dirParts.concat([flag]).join('\\');
 				exists = fs.existsSync(tempPath);
+				tempPath = dirParts.join('\\');
 				dirParts.pop();
 			}//while
 			return ({'exists':exists,'path':tempPath});

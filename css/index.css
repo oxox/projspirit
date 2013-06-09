@@ -489,6 +489,66 @@
 .icon_psd {
   background-color: #be2a4e;
 }
+@media only screen and (min-width: 767px) {
+  .file_name {
+    max-width: 410px;
+  }
+  .project_hasext .file_name {
+    max-width: 190px;
+  }
+}
+@media only screen and (min-width: 895px) {
+  .file_name {
+    max-width: 538px;
+  }
+  .project_hasext .file_name {
+    max-width: 318px;
+  }
+}
+@media only screen and (min-width: 1023px) {
+  .list_file li {
+    width: 50% !important;
+  }
+  .file_name {
+    max-width: 328px;
+  }
+  .project_hasext .file_name {
+    max-width: 218px;
+  }
+}
+@media only screen and (min-width: 1311px) {
+  .list_file li {
+    width: 33.33333333% !important;
+  }
+  .file_name {
+    max-width: 311.3333333333333px;
+  }
+  .project_hasext .file_name {
+    max-width: 238px;
+  }
+}
+@media only screen and (min-width: 1599px) {
+  .list_file li {
+    width: 25% !important;
+  }
+  .file_name {
+    max-width: 303px;
+  }
+  .project_hasext .file_name {
+    max-width: 248px;
+  }
+}
+@media only screen and (min-width: 1749px) {
+  .list_file li {
+    width: 25% !important;
+  }
+  .file_name {
+    max-width: 340.5px;
+  }
+  .project_hasext .file_name {
+    max-width: 285.5px;
+  }
+}
 body.dragover {
   background-color: yellow;
 }
@@ -525,6 +585,7 @@ body.dragover {
   padding: 5px 15px 10px;
 }
 .project_ext {
+  display: none;
   position: relative;
 }
 .project_ext .ext_box {
@@ -542,6 +603,9 @@ body.dragover {
   right: 2px;
   z-index: 2;
   font-size: 1.5em;
+}
+.project_hasext .project_ext {
+  display: block !important;
 }
 .nav_project .navitem_projActs {
   display: none;
@@ -606,12 +670,6 @@ body.dragover {
 .list_file li.file_changing .item_file {
   color: red;
 }
-.list_file.list_file_c2 li {
-  width: 50%;
-}
-.list_file.list_file_c3 li {
-  width: 33.3333333%;
-}
 .list_file a {
   color: #333;
 }
@@ -619,13 +677,20 @@ body.dragover {
   color: #999;
   font-size: 0.9em;
 }
+.list_file .file_icon,
+.list_file .file_name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
 .list_file .file_icon {
+  max-width: 45px;
   margin-right: 5px;
 }
 .list_file .item_file {
   position: relative;
   text-align: left;
-  margin-right: 5px;
   margin-bottom: 2px;
   padding: 5px;
 }
@@ -708,7 +773,7 @@ body.dragover {
 .ftp_upload .fileutil_act label {
   float: left;
   margin-bottom: 0px;
-  margin-right: 8px;
+  margin-right: 6px;
   font-size: 12px;
 }
 .flist_upload {

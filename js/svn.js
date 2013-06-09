@@ -42,12 +42,13 @@ J(function($,p,pub) {
 		},
 		initView:function(){
 			if(!this.isReady){
-				$('#btnGroupSVN').hide();
+				$('#btnGroupSVN').addClass('hide');
 				return;
 			}
 
 			$('#svnOPList').on('click','a',function(e){
 				p.svn.invoke(this.rel);
+				$('#btnGroupSVN').removeClass('open');
 				return false;
 			});
 		},
@@ -98,11 +99,21 @@ J(function($,p,pub) {
 				return;
 			};
 
+			//获取该项目的所有文件
+			var files = J.home.getFilesOfActiveProject(),
+				filePaths =[],
+				len = files.length;
+			for (var i = 0; i < len; i++) {
+				filePaths.push(files[i].path);
+			};
+
 			switch(flag){
 				case '1':
+					_path = len>0?filePaths.join('*'):_path;
 					this.cmd('commit',_path);
 					break;
 				case '2':
+					_path = len>0?filePaths.join('*'):_path;
 					this.cmd('update',_path);
 					break;
 				case '3':

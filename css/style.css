@@ -105,6 +105,7 @@ button,
   font-size: 28px;
   line-height: 1.2em;
   text-transform: uppercase;
+  visibility: hidden;
 }
 .mod_panel h3 {
   margin: 0;
@@ -334,19 +335,63 @@ footer {
   color: #fff;
 }
 @media (min-width: 768px) and (max-width: 979px) {
-  .sec_collapsein {
-    top: 200px;
+  .win_acts {
+    margin-right: 5px;
   }
-  .row_A {
-    top: 0;
+  .navbar-abs-top {
+    position: absolute;
+    margin-bottom: 0;
+    z-index: 10;
+  }
+  .navbar-abs-top .navbar-inner {
+    padding: 0;
+  }
+  .navbar-abs-top .navbar-inner .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .nav-collapse {
+    background-color: #000;
+    position: absolute;
+    top: 45px;
+    left: 20px;
+    right: 20px;
+    height: 0px;
+    -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    -o-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    -ms-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
   }
 }
 @media (max-width: 767px) {
-  .sec_collapsein {
-    top: 200px;
+  .win_acts {
+    margin-right: 5px;
   }
-  .row_A {
-    top: 0;
+  .navbar-abs-top {
+    position: absolute;
+    margin-bottom: 0;
+    z-index: 10;
+  }
+  .navbar-abs-top .navbar-inner {
+    padding: 0;
+  }
+  .navbar-abs-top .navbar-inner .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .nav-collapse {
+    background-color: #000;
+    position: absolute;
+    top: 45px;
+    left: 20px;
+    right: 20px;
+    height: 0px;
+    -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    -o-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    -ms-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.75);
   }
 }
 .host_list {

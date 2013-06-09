@@ -14,7 +14,7 @@ J(function($,p,pub){
 		isFtpUploading:false,
 		curWorkspace0:{
 			id:0,
-			name:'All'
+			name:'全部'
 		},
 		_init:function(){
 			this.reset();
@@ -49,7 +49,7 @@ J(function($,p,pub){
 	p.V = {
 		$wsList:$("#wsList"),
 		$wsOption:$("#wsOption"),
-		tplWSItem0:'<li id="wsItem0"><a href="#" rel="0">Show All</a></li>',
+		tplWSItem0:'<li id="wsItem0"><a href="#" rel="0">全部</a></li>',
 		tplWSItem:'<li id="wsItem%id%"><a href="#" rel="%id%">%name%</a></li>',
 		//fill workspace switch list
 		fillWSList:function(d){
@@ -85,7 +85,7 @@ J(function($,p,pub){
 				p.V.fillWSList(d);
 				p.M.setCurrentWorkspace();
 				//p.V.fillCurWS();
-				J.base.updateStatus("Total workspace:"+d.cnt);
+				J.base.updateStatus("工作台数:"+d.cnt);
 
 				//get project list
 				J.dataProject.getAll();
@@ -399,17 +399,19 @@ J(function($,p,pub){
 	 * 显示右侧扩展面板
 	 */
 	pub.showExtPanel = function(extBoxId){
-		$('#projectExt').removeClass("hide")
+		$('#projectExt')
 			.find('.ext_box')
 			.addClass('hide')
 			.filter('#'+extBoxId).removeClass('hide');
+		$('#projectMain').addClass('project_hasext');
 	};
 	/**
 	 * 隐藏右侧扩展面版
 	 */
 	pub.hideExtPanel = function(){
-		$('#projectExt').addClass("hide")
+		$('#projectExt')
 			.find('.ext_box').addClass('hide');
+		$('#projectMain').removeClass('project_hasext');
 	};
 	/**
 	 * 获取指定文件的工作台，以便获取该文件的ftp配置信息

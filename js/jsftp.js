@@ -10,11 +10,15 @@ J(function($,p,pub) {
 	var jsftp = require("jsftp"),//require("./node_modules/jsftp/index.js"),
 		cssutil = require('cssutil'),
 		path = require('path'),
+		UglifyJS = require("uglify-js"),
 		ftps = {};
 
 	p.M ={
 		wsInfo:null,
-		ftp:null
+		ftp:null,
+		compressJS:true,
+		compressCSS:true,
+		keepUncompressedFile:true
 	};
 
 	p.V = {
@@ -58,6 +62,11 @@ J(function($,p,pub) {
 			//reset
 			$('#btnUpdReset').on('click',function(e){
 				p.V.$fileList.empty();
+			});
+
+			$('#ftpUploadBox .ipt_cbx').on('change',function(e){
+				var id0 = this.getAttribute('data-id');
+				p.M[id0] = $(this).is(':checked');
 			});
 
 			J.base.$win.on(J.home.id+'onProjectDeleted',function(e){
@@ -195,10 +204,48 @@ J(function($,p,pub) {
 			});
 			//E-传送文件
 		},
+		_compressJs:function(filePath,cbk){
+			var filePath1 = filePath.toLowerCase();
+			//文件后缀是.min.js或者用户选择不压缩
+			if ( filePath1.indexOf('.min.js')>0 || (!p.M.compressJS) ) {
+				cbk(null,[
+					{
+						'fileInfo':filePath,
+						'remotePath':p.C._getRemotePath(filePath)
+					}
+				]);
+				return;
+			};
+
+			var fileParts = filePath.split('\\'),
+					len = fileParts.length,
+					fileName = fileParts[len-1],
+					fileName1 = fileName.substr(0,fileName.lastIndexOf('.'))+'.full.js';
+			fileParts[len-1] = fileName1;
+
+			var fullPath = fileParts.join('\\'),
+				finalFiles = [
+					{
+						'fileInfo':UglifyJS.minify(filePath).code,
+						'remotePath':p.C._getRemotePath(filePath)
+					}
+				];
+
+			if (p.M.keepUncompressedFile) {
+				finalFiles.push({
+					'fileInfo':filePath,
+					'remotePath':p.C._getRemotePath(fullPath)
+				});
+			};
+
+			cbk(null,finalFiles);
+
+		},
 		//css合并压缩并上传
 		_compressCss:function(filePath,cbk){
 			var filePath1 = filePath.toLowerCase();
-			if ( filePath1.indexOf('.min.css')>0 ) {
+			//文件后缀是.min.css或者用户选择不压缩
+			if ( filePath1.indexOf('.min.css')>0 || (!p.M.compressCSS) ) {
 				cbk(null,[
 					{
 						'fileInfo':filePath,
@@ -226,18 +273,22 @@ J(function($,p,pub) {
 					fileName1 = fileName.substr(0,fileName.lastIndexOf('.'))+'.full.css';
 				fileParts[len-1] = fileName1;
 
-				var fullPath = fileParts.join('\\');
+				var fullPath = fileParts.join('\\'),
+					finalFiles = [
+						{
+							'fileInfo':cssutil.compress(txt),
+							'remotePath':p.C._getRemotePath(filePath)
+						}
+					];
 
-				cbk(null,[
-					{
+				if (p.M.keepUncompressedFile) {
+					finalFiles.push({
 						'fileInfo':txt,
 						'remotePath':p.C._getRemotePath(fullPath)
-					},
-					{
-						'fileInfo':cssutil.compress(txt),
-						'remotePath':p.C._getRemotePath(filePath)
-					}
-				]);
+					});
+				};
+
+				cbk(null,finalFiles);
 
 			});
 		},
@@ -287,29 +338,34 @@ J(function($,p,pub) {
 				if(!msg.isDone){
 					return;
 				}
+
+				var onCompressed = function(err,fileInfos){
+					if (err) {
+						fileInfos = [{
+							'fileInfo':fileObj.path,
+							'remotePath':remotePath
+						}];
+					};
+					opts.always0 = opts.always;
+					opts.always = function(msg,data){
+						if (fileInfos.length===0) {
+							opts.always0(msg,data);
+							return;
+						};
+						var tempFile1 = fileInfos.splice(0,1)[0];
+						p.C._doUpload(tempFile1.fileInfo,tempFile1.remotePath,fileStatus,opts);
+					};
+					var tempFile = fileInfos.splice(0,1)[0];
+					p.C._doUpload(tempFile.fileInfo,tempFile.remotePath,fileStatus,opts);
+				};
+
 				//目录创建完毕
 				switch(fileExt){
 					case '.css':
-						p.C._compressCss(fileObj.path,function(err,fileInfos){
-							if (err) {
-								fileInfos = [{
-									'fileInfo':fileObj.path,
-									'remotePath':remotePath
-								}];
-							};
-							opts.always0 = opts.always;
-							opts.always = function(msg,data){
-								if (fileInfos.length===0) {
-									opts.always0(msg,data);
-									return;
-								};
-								var tempFile1 = fileInfos.splice(0,1)[0];
-								p.C._doUpload(tempFile1.fileInfo,tempFile1.remotePath,fileStatus,opts);
-							};
-							var tempFile = fileInfos.splice(0,1)[0];
-							p.C._doUpload(tempFile.fileInfo,tempFile.remotePath,fileStatus,opts);
-
-						});
+						p.C._compressCss(fileObj.path,onCompressed);
+						break;
+					case '.js':
+						p.C._compressJs(fileObj.path,onCompressed);
 						break;
 					default:
 						p.C._doUpload(fileObj.path,remotePath,fileStatus,opts);
@@ -500,8 +556,6 @@ J(function($,p,pub) {
 	 *文件拖拽回调
 	 */
 	pub.onDragStart = function(e){
-		e.dataTransfer.setData('path',e.target.getAttribute('data-path'));
-		e.dataTransfer.setData('name',e.target.getAttribute('data-name'));
 		e.dataTransfer.setData('id',e.target.getAttribute('data-id'));
 	};
 	/**
@@ -522,13 +576,8 @@ J(function($,p,pub) {
 	 */
 	pub.onDrop = function(e){
 		e.preventDefault();
-		p.C.uploadAll([
-			{
-				'id':e.dataTransfer.getData('id'),
-				'path':e.dataTransfer.getData('path'),
-				'name':e.dataTransfer.getData('name')
-			}
-		]);
+		var id = e.dataTransfer.getData('id');
+		p.C.uploadAll([J.file.cache[id]]);
 	};
 
 });

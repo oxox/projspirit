@@ -10,7 +10,7 @@
     "frame": false,
     "position": "center",
     "width": 1024,
-    "height": 600,
+    "height": 640,
     "min_width": 768,
     "min_height": 480,
     "icon": "icon.png"
@@ -23,6 +23,7 @@
   "dependencies": {
     "fs-extra": "~0.6.1",
     "jsftp":"~0.6.0",
-    "cssutil":"~0.0.1"
+    "cssutil":"~0.0.1",
+    "uglify-js":"~2.3.6"
   }
 }
