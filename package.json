@@ -1,12 +1,12 @@
 {
   "name": "ProjSpirit",
   "main": "default.html",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "keywords":["ProjSpirit","node-webkit"],
   "description": "A project management Node-Webkit application for front-end developers.",
   "window": {
 	"show":false,
-    "toolbar": true,
+    "toolbar": false,
     "frame": false,
     "position": "center",
     "width": 1024,

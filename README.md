@@ -11,6 +11,7 @@ A project management Node-Webkit application for front-end developers.
 - [x] ftp上传
 - [x] tortoiseSVN调用
 - [x] css合并压缩
+- [x] js压缩
 - [ ] png无损压缩
 - [ ] jpg无损压缩
 - [ ] host功能-集成[hostspirit](http://faso.me/hostspirit/)
