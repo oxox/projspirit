@@ -254,8 +254,10 @@ J(function($,p,pub) {
 				]);
 				return;
 			};
+			var cssCompressorProviderId = 1;//1-ycssmin;0-clean-css
 			cssutil.build([filePath],{
-				minify:false
+				minify:false,
+				compressProviderId:cssCompressorProviderId
 			},function(err,txt){
 				if (err) {
 					//TODO:LOG
@@ -276,7 +278,7 @@ J(function($,p,pub) {
 				var fullPath = fileParts.join('\\'),
 					finalFiles = [
 						{
-							'fileInfo':cssutil.compress(txt),
+							'fileInfo':cssutil.compress(txt,cssCompressorProviderId),
 							'remotePath':p.C._getRemotePath(filePath)
 						}
 					];

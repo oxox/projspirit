@@ -5,7 +5,7 @@ J(function($,p,pub){
 	p.C= {
 		_onLoad:function(){
 
-			J.base.showTip('FWS V'+J.data.version);
+			J.base.showTip(J.data.packageJson.name+' V'+J.data.version);
 			$("#txtVersion").html(J.data.version);
 
 			$("#aboutBody").on("click","a",function(e){

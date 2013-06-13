@@ -40,11 +40,11 @@ J(function($,p,pub){
 			//Add error event listener
 			window.addEventListener('error', function (err) {
 				var message = '---error---\n' + err.filename + ':' + err.lineno + '\n' + err.message + '\n\n';
-				alert(message);
+				J.alert.show(message);
 			}, false);
 
 			process.on('uncaughtException', function (err) {
-				alert('---uncaughtException---\n' + err.stack + '\n\n');
+				J.alert.show('---uncaughtException---\n' + err.stack + '\n\n');
 			});
 		},
 		_onLoad:function(){

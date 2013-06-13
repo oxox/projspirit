@@ -446,18 +446,12 @@
   display: inline-block;
   height: 20px;
   padding: 0 4px;
-  background-color: #aaaaaa;
-  color: #fff;
-}
-.icon_file:after {
-  display: inline-block;
-  content: attr(title);
   text-align: center;
   font-size: 10px;
   text-transform: uppercase;
   font-style: normal;
-  position: relative;
-  top: -1px;
+  background-color: #aaaaaa;
+  color: #fff;
 }
 .icon_css {
   background-color: #628179;
@@ -685,8 +679,11 @@ body.dragover {
   overflow: hidden;
 }
 .list_file .file_icon {
-  max-width: 45px;
   margin-right: 5px;
+}
+.list_file .file_icon .icon_file {
+  min-width: 26px;
+  max-width: 45px;
 }
 .list_file .item_file {
   position: relative;

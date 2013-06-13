@@ -23,7 +23,7 @@ J(function($,p,pub){
 
 			J.base.$win.on(J.dataWorkspace.id+'OnGetAll',function(e,d){
 				p.V.fillData(d);
-				J.base.updateStatus("Total workspace:"+d.cnt);
+				J.base.updateStatus("工作台数:"+d.cnt);
 			}).on(J.dataWorkspace.id+'OnDataInited',function(e){
 				//get workspace data
 				J.dataWorkspace.getAll();

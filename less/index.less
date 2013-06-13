@@ -140,7 +140,10 @@ body{
 		.text-overflow-hidden();
 	}
 	.file_icon{
-		max-width: ~'@{iconFileMaxWidth}px';
+		.icon_file{
+			min-width: ~'@{iconFileMinWidth}px';
+			max-width: ~'@{iconFileMaxWidth}px';
+		}
 		margin-right: ~'@{iconFileGapWidth}px';
 	}
 	.item_file{
