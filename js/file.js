@@ -1,6 +1,7 @@
 J(function($,p,pub){
 	pub.id = "file";
 	pub.cache={};
+	var cprocess = require('child_process');
 	p.V={
 		tplDetail:document.getElementById('tplFileDetail').innerHTML,
 		$detail:$('#fileDetail'),
