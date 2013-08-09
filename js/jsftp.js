@@ -43,16 +43,7 @@ J(function($,p,pub) {
 			});
 			//retry
 			$('#btnUpdRedo').on('click',function(e){
-
-				var items = [];
-
-				p.V.$fileList.find('li').each(function(i,o){
-					items.push({
-						'id':o.getAttribute('data-id'),
-						'path':o.getAttribute('data-path'),
-						'name':o.getAttribute('data-name')
-					});
-				});
+				var items = pub.getUploadedFiles();
 				p.C.uploadAll(items);
 			});
 			//upload all
@@ -580,6 +571,22 @@ J(function($,p,pub) {
 		e.preventDefault();
 		var id = e.dataTransfer.getData('id');
 		p.C.uploadAll([J.file.cache[id]]);
+	};
+	/**
+	 * 获取已上传文件
+	 */
+	pub.getUploadedFiles = function(){
+		var items = [];
+
+		p.V.$fileList.find('li').each(function(i,o){
+			items.push({
+				'id':o.getAttribute('data-id'),
+				'path':o.getAttribute('data-path'),
+				'name':o.getAttribute('data-name')
+			});
+		});
+
+		return items;
 	};
 
 });

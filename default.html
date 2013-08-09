@@ -119,6 +119,7 @@
 												<button class="btn btn-primary btn-mini" id="btnUpdRedo">重试</button>
 												<button class="btn btn-mini" id="btnUpdAll">上传全部</button>
 												<button class="btn btn-mini" id="btnUpdReset">清空</button>
+												<button class="btn btn-mini" id="btnUpdPublishList">提单</button>
 											</div>
 											<div class="ftpupd_acts fileutil_act clearfix">
 												<label class="checkbox"><input class="ipt_cbx" data-id="compressCSS" id="cbxCompressCSS" checked="checked" type="checkbox"/>压CSS</label>
@@ -232,6 +233,36 @@
 			</div>
 		</div>
         <!--E 项目编辑界面 -->
+
+        <!--S 项目提单浮层 -->
+		<div id="popPublishList" class="modal modal-fixed mod_modalA fade hide" tabindex="-1" role="dialog" aria-labelledby="publishTitle" aria-hidden="true">
+			<div class="modal-header">
+				<div class="modal-headerin">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+					<h3 id="publishTitle">邮件提单</h3>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div id="popPublishBody" class="modal-bodyin">
+					<div class="form-horizontal form_1">
+						<div id="cg_publicPathPrefix" class="control-group">
+							<label class="control-label" for="ipt_publishPrefix">提单前缀</label>
+							<div class="controls">
+								<input type="text" id="ipt_publishPrefix" class="input-xlarge field_item field_name" name="name" placeholder="提单前缀"/>
+							</div>
+							<textarea class="tbx_pubfiletxt" id="publishFileTxt"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="modal-footerin">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button id="btnMail" class="btn btn-primary">发邮件</button>
+				</div>
+			</div>
+		</div>
+        <!--E 项目提单浮层 -->
 
 		<!--Templates-->
 		<script type="x-jquery-tpl" id="tplProjNavItem">
@@ -347,6 +378,7 @@
 		<script src="js/default.js"></script>
 		<script src="js/default.dragdrop.js"></script>
 		<script src="js/file.js"></script>
+		<script src="js/mail.js"></script>
 		<script type="text/javascript">
 			J.init({});
 		</script>

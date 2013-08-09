@@ -25,7 +25,7 @@
   background-image: linear-gradient(top, #02c4fb, #029cc8);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#02c4fb', endColorstr='#029cc8', GradientType=0);
-  z-index: 9999;
+  z-index: 1039;
   outline: 0;
 }
 .fm_btntoggle span {
@@ -156,9 +156,9 @@
   border: 0.01em solid rgba(150, 150, 150, 0.1);
   top: 50%;
   left: 50%;
-  font-size: {@size}px;
-  margin-left: '-{@size1}px';
-  margin-top: '-{@size1}px';
+  font-size: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
 }
 .mod_loader_dot {
   position: absolute;
@@ -890,4 +890,7 @@ body.dragover {
   background-size: cover;
   border: 2px solid #ebebeb;
   border-right: 0;
+}
+.tbx_pubfiletxt {
+  width: 90%;
 }

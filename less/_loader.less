@@ -1,9 +1,9 @@
 @import "_mixins.less";
 .app-loader-size(@size:100){
-    font-size: ~'{@size}px';
+    font-size: ~'@{size}px';
     @size1:@size/2;
-    margin-left: '-{@size1}px';
-    margin-top: '-{@size1}px';
+    margin-left: ~'-@{size1}px';
+    margin-top: ~'-@{size1}px';
 }
 .mod_loader{
 	position: absolute;

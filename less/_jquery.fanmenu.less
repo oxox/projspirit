@@ -1,5 +1,6 @@
 @colorToggle:      #02c4fb;
 @colorToggle1:     darken(@colorToggle,10%);
+@zIndex:1039;
 .fm_btntoggle{
 	position:absolute;
 	bottom:0;
@@ -14,7 +15,7 @@
 	
 	#gradient.vertical(@colorToggle, @colorToggle1);
 	
-	z-index:9999;
+	z-index:@zIndex;
 	outline:0;
 
 	
