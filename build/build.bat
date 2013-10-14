@@ -13,4 +13,8 @@ call %NW_FOLDER%\make.bat
 rem;; move the zip file to the NWAPP_FOLDER
 move "%APP_NAME%%APP_VERSION%.zip" %NWAPP_FOLDER%
 
+rem;; copy the package.json to the gh-pages branch
+
+copy ..\package.json ..\gh-pages\
+
 pause
