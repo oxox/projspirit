@@ -3,6 +3,7 @@ J(function($,p,pub){
 	pub.id ="base";
 	pub.userName = process.env['USERNAME'];
 	pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
+	pub.appRootUrl = 'file:///'+pub.appRoot.replace(/\\/gi,'/');
 	pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',J.data.packageJson.name);
 	pub.initFile = pub.dataRoot+"app.ini";
 	pub.$win = $(window);

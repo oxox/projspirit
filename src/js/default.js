@@ -384,6 +384,9 @@ J(function($,p,pub){
 			$('#btnCloseProjectExt').on('click',function(e){
 				pub.hideExtPanel();
 			});
+			J.base.$win.on(pub.id+'onProjectDeleted',function(e){
+				pub.hideExtPanel();
+			});
 		}
 	};
 

@@ -1,11 +1,3 @@
-..\css
-..\js
-..\img
-..\font
 ..\node_modules
-..\about.html
-..\default.html
-..\icon.png
 ..\package.json
-..\setting.html
-..\workspace.html
+..\src

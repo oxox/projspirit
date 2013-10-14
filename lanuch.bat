@@ -1,6 +1,6 @@
 @echo off
 set NWFOLDER=E:\Camp\Documents\GitHub\mamboer\nwapp\nw
-set NWEXE=%NWFOLDER%\nw.exe
+set NWEXE=nw.exe
 set APPFOLDER= %cd%
 copy %NWFOLDER%\*.dll %APPFOLDER%
 copy %NWFOLDER%\nw.exe %APPFOLDER%

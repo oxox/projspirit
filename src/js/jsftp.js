@@ -30,16 +30,7 @@ J(function($,p,pub) {
 		tplFileItem:'<li id="ftpFile%id%" data-id="%id%" data-path="%path%" data-name="%name%">%name%</li>',
 		_init:function(){
 			this.$btnFtpUpload.on('click',function(e){
-				if(this.className.indexOf('disabled')>0){
-					alert('当前项目没有对应的FTP配置信息，请检查workspace配置！');
-					return;
-				}
-				//FTP登录验证
-				p.V.show();
-				p.C.ftpAuth(function(){
-					p.V.show(true);
-				});
-				
+				p.C.connect();
 			});
 			//retry
 			$('#btnUpdRedo').on('click',function(e){
@@ -115,6 +106,9 @@ J(function($,p,pub) {
 			for(var c in attrObj){
 				fileDom.setAttribute(c,attrObj[c]);
 			};
+		},
+		isVisible:function(){
+			return (!this.$main.is(":hidden"));
 		}
 	};
 	//controller
@@ -122,6 +116,8 @@ J(function($,p,pub) {
 		_init:function(){
 			J.base.$win.on(J.home.id+'OnSelectProject',function(e,d){
 				p.V.assertUploadable(d.path);
+				//ftp connect
+				p.C.connect();
 			});
 		},
 		_ftpPut:function(buffer,remotePath,fileStatus,opts){
@@ -435,6 +431,18 @@ J(function($,p,pub) {
 				});
 			}
 		},//ftpAuth
+		connect:function(cbk){
+			if(!p.M.wsInfo){
+				p.V.show('当前项目没有对应的FTP配置信息，请检查workspace配置！');
+				return;
+			}
+			p.V.show();
+			this.ftpAuth(function(){
+				console.log(new Date().getTime());
+				p.V.show(true);
+				cbk&&cbk();
+			});
+		},
 		//递归创建目录
 		mkd:function(remoteFolder,rootPath,cbk){
 
@@ -587,6 +595,13 @@ J(function($,p,pub) {
 		});
 
 		return items;
+	};
+
+	pub.showUploadPanel = function(){
+		if(p.V.isVisible()){
+			return;
+		};
+		p.C.connect();
 	};
 
 });

@@ -123,13 +123,6 @@
     top: 0px;
   }
 }
-.hide-text {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
 .mod_loader {
   position: absolute;
   top: 0;
@@ -176,6 +169,8 @@
   /* IE 9 */
 
   -webkit-transform-origin: 50% 250%;
+  /* Safari and Chrome */
+
   -moz-transform-origin: 50% 250%;
   /* Safari and Chrome */
 
@@ -195,6 +190,8 @@
   /* IE 9 */
 
   -webkit-transform-origin: -150% 50%;
+  /* Safari and Chrome */
+
   -moz-transform-origin: -150% 50%;
   /* Safari and Chrome */
 
@@ -214,6 +211,8 @@
   /* IE 9 */
 
   -webkit-transform-origin: 50% -150%;
+  /* Safari and Chrome */
+
   -moz-transform-origin: 50% -150%;
   /* Safari and Chrome */
 
@@ -233,6 +232,8 @@
   /* IE 9 */
 
   -webkit-transform-origin: 250% 50%;
+  /* Safari and Chrome */
+
   -moz-transform-origin: 250% 50%;
   /* Safari and Chrome */
 
@@ -837,59 +838,6 @@ body.dragover {
 }
 .ftpupd_loading_bd.error {
   color: red;
-}
-.file_detail {
-  overflow: hidden;
-}
-.file_detail .eb_sec_ani {
-  opacity: 0;
-}
-.file_detail .eb_sec {
-  text-align: right;
-  -webkit-transition: all 0.4s ease-in-out;
-  -moz-transition: all 0.4s ease-in-out;
-  -ms-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-.file_detail .eb_sec1 {
-  text-align: left;
-}
-.file_detail .eb_sec2 {
-  text-align: center;
-}
-.file_detail .eb_sec_playani {
-  opacity: 1;
-}
-.file_detail .file_name {
-  font-size: 16px;
-  font-weight: bold;
-}
-.file_detail .file_name .eb_sec,
-.file_detail .file_name .eb_sec_bd {
-  background-color: #625050;
-}
-.file_detail .file_metas {
-  font-size: 11px;
-}
-.file_detail .file_acts {
-  padding-top: 10px;
-}
-.file_detail .file_acts .eb_sec_bd {
-  background-color: #02c4fb;
-}
-.file_detail .file_thumb {
-  margin-top: 10px;
-}
-.file_detail .file_thumb .thumb_img {
-  display: inline-block;
-  width: 150px;
-  height: 150px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border: 2px solid #ebebeb;
-  border-right: 0;
 }
 .tbx_pubfiletxt {
   width: 90%;

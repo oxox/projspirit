@@ -117,7 +117,7 @@
 										<div class="ext_box_hd ftpupd_hd">
 											<div class="ftpupd_acts">
 												<button class="btn btn-primary btn-mini" id="btnUpdRedo">重试</button>
-												<button class="btn btn-mini hide" id="btnUpdAll">上传全部</button>
+												<!--<button class="btn btn-mini" id="btnUpdAll">上传全部</button>-->
 												<button class="btn btn-mini" id="btnUpdReset">清空</button>
 												<button class="btn btn-mini" id="btnUpdPublishList">提单</button>
 											</div>
@@ -141,21 +141,6 @@
 									</div>
 								</div>
 								<!--E-ftp upload-->
-								<!--S-file detail-->
-								<div id="fileDetailBox" class="mod_panel ext_box fd_box hide">
-									<div class="panel_hdA">
-										<div class="ext_box_hd">
-											<h3>文件明细</h3>
-										</div>
-									</div>
-									<div class="panel_bdA">
-										<div class="ext_box_hd">
-											<div id="fileDetail" class="file_detail"></div>
-											<!--file_detail-->
-										</div>
-									</div>
-								</div>
-								<!--E-file detail-->
 							</div>
 						</div><!--/project_main-->
 					</div>
@@ -312,45 +297,6 @@
 				{{/isOk}}
 				</div>
 			</div>
-		</script>
-		<script type="text/x-mustache-tpl" id="tplFileDetail">
-			<div class="file_name">
-				<div class="eb_sec eb_sec_ani">
-					<div class="eb_sec_bd">{{name}}</div>
-				</div>
-			</div>
-			<div class="file_metas">
-				<div class="eb_sec eb_sec_ani">
-					<div class="eb_sec_bd file_size">{{size}}kb</div>
-				</div>
-				<div class="eb_sec eb_sec_ani">
-					<div class="eb_sec_bd file_mtime">{{mtime}}</div>
-				</div>
-			</div>
-			<div class="file_acts">
-				<div class="file_act fact_edit">
-					<div class="eb_sec">
-						<div class="eb_sec_bd"><i class="icon-edit"></i><a class="btn_fedit" rel="{{path}}" href="javascript:;">编辑&gt;&gt;</a></div>
-					</div>
-				</div>
-				<div class="file_act fact_open">
-					<div class="eb_sec">
-						<div class="eb_sec_bd"><i class="icon-hand-up"></i><a class="btn_fopen" rel="{{path}}" href="javascript:;">打开&gt;&gt;</a></div>
-					</div>
-				</div>
-				<div class="file_act fact_explorer">
-					<div class="eb_sec">
-						<div class="eb_sec_bd"><i class="icon-folder-open"></i><a class="btn_fopendir" rel="{{path}}" href="javascript:;">打开所在文件夹&gt;&gt;</a></div>
-					</div>
-				</div>
-			</div>
-			{{#isImg}}
-			<div class="file_thumb">
-				<div class="eb_sec eb_sec_ani">
-					<div class="thumb_img" style="background-image:url({{url}});"></div>
-				</div>
-			</div>
-			{{/isImg}}
 		</script>
 		<!--/Templates-->
 

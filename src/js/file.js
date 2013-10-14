@@ -3,21 +3,14 @@ J(function($,p,pub){
 	pub.cache={};
 	var cprocess = require('child_process');
 	p.V={
-		tplDetail:document.getElementById('tplFileDetail').innerHTML,
-		$detail:$('#fileDetail'),
 		$curFile:null,
 		render:function(fileObj){
 			if (this.$curFile) {
 				this.$curFile.removeClass('active');
 			};
 			this.$curFile = $('#'+fileObj.id).addClass('active');
-			document.getElementById('fileDetail').innerHTML = Mustache.render(this.tplDetail,fileObj);
 			J.session[pub.id+'.curFileId'] = fileObj.id;
 			J.home.setProjectTip(fileObj.path);
-		},
-		show:function(){
-			J.home.showExtPanel('fileDetailBox');
-			this.$detail.find('.eb_sec_ani').addClass('eb_sec_playani');
 		}
 	};
 	p.C = {
@@ -37,18 +30,7 @@ J(function($,p,pub){
 				var id=this.getAttribute('data-id'),
 					fileObj = J.file.cache[id];
 				p.V.render(fileObj);
-				p.V.show();
-				return false;
-			});
-
-			$('#fileDetail').on('click','.btn_fopen',function(e){
-				p.C.openFile(this.rel);
-				return false;
-			}).on('click','.btn_fedit',function(e){
-				p.C.editFile(this.rel);
-				return false;
-			}).on('click','.btn_fopendir',function(e){
-				J.base.openFileInFolder(this.rel);
+				J.ftpUpload.showUploadPanel();
 				return false;
 			});
 
@@ -80,12 +62,12 @@ J(function($,p,pub){
 		assertCurrentFile:function(){
 			var fid = J.session[pub.id+'.curFileId'];
 			if (!fid) {
-				J.home.hideExtPanel();
+				//J.home.hideExtPanel();
 				return;
 			};
 			var $f = $('#'+fid);
 			if ($f.length===0) {
-				J.home.hideExtPanel();
+				//J.home.hideExtPanel();
 				return;
 			};
 			$f.trigger('click');
@@ -95,6 +77,46 @@ J(function($,p,pub){
 			for (var i = len - 1; i >= 0; i--) {
 				pub.cache[files[i].id]=files[i];
 			};
+		}
+	};
+
+	p.contextMenu = {
+		_init:function(){
+			// Create an empty menu
+			var menu = new J.base.gui.Menu();
+			// Add some items
+			menu.append(new J.base.gui.MenuItem({ label: '编辑' ,click:function(){p.contextMenu.onClick(1);}}));
+			menu.append(new J.base.gui.MenuItem({ label: '打开' ,click:function(){p.contextMenu.onClick(2);}}));
+			menu.append(new J.base.gui.MenuItem({ type: 'separator' }));
+			menu.append(new J.base.gui.MenuItem({ label: '打开所在文件夹' ,click:function(){p.contextMenu.onClick(3);}}));
+
+			this.menu = menu;
+
+			$("#projectPanelList").on('contextmenu','li',function(e){
+				var id=this.getAttribute('data-id'),
+					fileObj = J.file.cache[id];
+				p.contextMenu.show(e.clientX+5,e.clientY+5,fileObj);
+				return false;
+			});
+
+		},
+		onClick:function(actId){
+			switch(actId){
+				case 1:
+					p.C.openFile(this.menu.rel.path);
+				break;
+				case 2:
+					p.C.editFile(this.menu.rel.path);
+				break;
+				case 3:
+					J.base.openFileInFolder(this.menu.rel.path);
+				break;
+			};//switch
+		},
+		show:function(x,y,rel){
+			this.menu.rel = rel;
+			// Popup as context menu
+			this.menu.popup(x, y);
 		}
 	};
 
