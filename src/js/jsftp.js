@@ -438,7 +438,7 @@ J(function($,p,pub) {
 			}
 			p.V.show();
 			this.ftpAuth(function(){
-				console.log(new Date().getTime());
+				//console.log(new Date().getTime());
 				p.V.show(true);
 				cbk&&cbk();
 			});
