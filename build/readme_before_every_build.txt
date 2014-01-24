@@ -2,6 +2,9 @@
 
 // Note:https://www.evernote.com/shard/s199/sh/72667c6d-46f9-4f4f-891b-99e7b0b6a785/549b9f23e017db2e2d51de9f2276f3b3
 // Node.js
+
+把一堆if语句去掉，只保留下面的3句
+
 less = exports,
 tree = require('./tree');
 less.mode = 'node';
