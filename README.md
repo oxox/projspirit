@@ -1,10 +1,31 @@
 ProjSpirit!
 ===========
 
-A project management Node-Webkit application for front-end developers.
-----------------------------------------------------------------------
+![ProjSpirit!](https://raw.github.com/oxox/projspirit/master/src/img/icon.png)
 
-![ProjSpirit!](http://oxox.io/projspirit/icon.png)
+## 背景
+
+ProjSpirit是使用[node-webkit](https://github.com/rogerwang/node-webkit)开发的一个前端静态文件管理工具。功能大体上和cssgaga类似但要简单很多，重造这个轮子，除了想玩玩node-webkit之外，更直接的缘由是鄙人所在部门的svn目录结构很是变态凌乱（历史遗留问题，据说是运维缓存策略所需），cssgaga类的工具不适用。
+
+怎么变态法？
+
+一般的前端文件组织方式为：项目目录，里面是css、img、js等类型子目录。
+
+	|-----------------|--- css
+	|-- project_xxx --|--- img
+	|-----------------|--- js
+
+
+而我们部门的前端文件组织方式为：类型目录，里面是项目子目录。
+
+	|-- css --|--- project_xxx
+	|-- img --|--- project_xxx
+	|-- js  --|--- project_xxx
+
+尼玛的，这意味着一个项目的文件被分散在N个不同的父级目录里面。
+
+ProjSpirit同时支持上面两种类型的文件组织形式。对于第二种情况，它会自动找到项目相关的文件，并放到一起来展示，方便你做上传、编辑等操作。
+
 
 ## 功能
 
@@ -17,64 +38,22 @@ A project management Node-Webkit application for front-end developers.
 - [ ] host功能-集成[hostspirit](http://faso.me/hostspirit/)
 - [ ] sprite雪碧图生成
 
-## 页面加载时的数据流程
+## 下载地址
 
-1. dataSetting模块初始化 - 判断app.ini文件是否存在，不存在2，存在3
-2. 创建app.ini文件
-3. 触发window的dataSettingOnLoaded事件，如果2被成功执行，传递数据{isNew:true,isOk:true}，否则isNew为false
-4. dataWorkspace模块监听window的dataSettingOnLoaded事件，如果isNew为true转5，否则6
-5. 初始化SQLlite数据库，创建表Workspace，并且插入初始数据，
-6. dataWorkspace模块触发window的dataWorkspaceOnDataInited事件
+[敲击这里下载](http://mamboer.github.com/nwapp/release/ProjSpirit.zip)
 
-到了第6步，说明app.ini文件已经ok，sqlite数据库创建完毕，并且初始化数据完毕！
+## 如何使用
 
-所以，所有页面的入口，应该监听window的dataWorkspaceOnDataInited事件，在事件处理函数中进行
-页面逻辑处理。
+### 配置工作台
 
-## 模块关键接口
+ProjSpirit沿用了Aptana工作台的概念，可以认为一个工作台对应一个大项目，对应一个远程的ftp服务器（开发机）。
 
-### J.base
+工作台的配置界面如下：
 
-1. J.base.reload - 重载当前窗口
-2. J.base.showTip - 显示提示信息
+![ProjSpirit!](http://oxox.io/projspirit/assets/img/ws.jpg)
 
-	``` js
+### 拖拽项目目录进入ProjSpirit
 
-		/**
-		 * 在页脚状态栏显示提示信息
-		 * @param {String} txt 提示信息
-		 * @param {int} timeout 提示显示时长
-		 */
-		pub.showTip = function(txt,timeout){
-			clearTimeout(p.M.tipTimer);
-			p.V.$tip.html(txt).show();
-			p.M.isBusy=true;
-			if (!timeout) {
-				return;
-			};
-			p.M.tipTimer = setTimeout(function(){
+![ProjSpirit!](http://oxox.io/projspirit/assets/img/proj.jpg)
 
-				pub.hideTip();
-
-			},timeout);
-		};
-
-	```
-3. J.base.gui - referenced to 'nw.gui' module
-4. J.base.fs - referenced to 'fs-extra' module
-
-### J.home
-
-1. J.home.addProject(_dir)
-
-	``` js
-
-		/**
-		 * 添加一个工作项目
-		 * @param {String} _dir 目录
-		 */
-		pub.addProject = function(_dir){
-			p.project.addProject(_dir);
-		};
-
-	```
+注：请尽量拖最小的工作目录进来！！如果你的项目文件巨多，有可能会卡死！
