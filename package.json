@@ -6,7 +6,7 @@
   "description": "A project management Node-Webkit application for front-end developers.",
   "window": {
     "show":false,
-    "toolbar": true,
+    "toolbar": false,
     "frame": false,
     "position": "center",
     "width": 1190,
