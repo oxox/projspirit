@@ -396,7 +396,7 @@ J(function($,p,pub){
     p.fileFilter = {
         ext:{},
         addDir:function(d){
-            if(d.cntFile===0) return;
+            if( (!d.isOk) || (d.cntFile===0) ) return;
             this.addFiles(d.files);
             if(d.current===d.total){
                 this.render();
