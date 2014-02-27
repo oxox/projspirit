@@ -1,3 +1,4 @@
+.hide{display: none!important;}
 .hide-text {
   font: 0/0 a;
   color: transparent;
@@ -577,7 +578,7 @@ body.dragover {
   height: 100%;
 }
 .project_main .tab-pane {
-  padding: 5px 15px 10px;
+  padding: 5px 15px 30px;
 }
 .project_ext {
   display: none;
@@ -724,6 +725,24 @@ body.dragover {
 }
 .list_file .item_img:hover .file_bd {
   opacity: 1;
+}
+/*==== 文件筛选 ====*/
+.file_filter{
+  position: fixed;
+  z-index: 100;
+  padding:3px 0;
+  bottom:32px;
+  left:240px;
+  right:20px;
+  background-color: rgba(0,0,0,.7);
+}
+.file_filter_bd{padding:0 20px;}
+.file_filter .icon_file{min-width: 26px;transition:all .2s ease-out;}
+.ff_item {display: inline-block;margin-right:10px;}
+.ff_item_on .icon_file{color: red;font-weight: bold;font-size: 12px;-webkit-transform: translateY(-4px);transform: translateY(-4px);}
+
+.project_hasext .file_filter{
+  right:240px;
 }
 .project_dir h3 {
   font-weight: normal;
