@@ -1,4 +1,6 @@
 gh-pages/
+src/node_modules/
 *.dll
+*.log
 nw.exe
 nw.pak

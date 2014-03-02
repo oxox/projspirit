@@ -1,0 +1,24 @@
+{
+  "name": "proj",
+  "version": "1.0.0",
+  "keywords":["ProjSpirit","node-webkit"],
+  "description": "A project management Node-Webkit application for front-end developers.",
+  "repository": "git://github.com/oxox/projspirit.git",
+  "homepage": "http://oxox.io/projspirit",
+  "author": {
+    "name": "oxox.io",
+    "site": "http://oxox.io"
+  },
+  "license": [{"type": "MIT"}],
+  "devDependencies": {
+    "connect": "*",
+    "grunt":"*",
+    "grunt-contrib-uglify":"*",
+    "grunt-contrib-jshint":"*",
+    "grunt-contrib-qunit":"*",
+    "grunt-contrib-watch":"*",
+    "grunt-contrib-concat":"*",
+    "grunt-concat-css":"*",
+    "grunt-css":"*"
+  }
+}

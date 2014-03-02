@@ -434,7 +434,7 @@ J(function($,p,pub){
             $('#projectPanelList').on('click','.ff_item',function(e){
                 var $item = $(this),
                     clOn = 'ff_item_on',
-                    clHide = 'hide',
+                    clHide = 'xhide',
                     extName = this.getAttribute('data-ext');
                 if( $item.hasClass(clOn) ){
                     return false;
